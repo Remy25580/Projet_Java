@@ -1,0 +1,25 @@
+package school.coda.remy_axel_ethan.projet_java.base;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import school.coda.remy_axel_ethan.projet_java.placement.BoatPlacement;
+
+import java.io.IOException;
+
+public class BaseController {
+    @FXML
+    private Label welcomeText;
+
+    @FXML
+    protected void onHelloButtonClick(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource())
+                .getScene()
+                .getWindow();
+
+        BoatPlacement placement = new BoatPlacement();
+        placement.placement(stage);
+    }
+}

@@ -1,4 +1,4 @@
-package school.coda.remy_axel.projet_java;
+package school.coda.remy_axel_ethan.projet_java.base;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +10,9 @@ import java.io.IOException;
 public class GameBase extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GameBase.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GameBase.class.getResource("base-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        stage.setTitle("Bataille Javale");
         stage.setScene(scene);
         stage.show();
     }
