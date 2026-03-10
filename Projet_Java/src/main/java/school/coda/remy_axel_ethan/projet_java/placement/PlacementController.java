@@ -53,20 +53,22 @@ public class PlacementController implements Initializable {
             int boatSpace = x + selectedBoat.getSize();
             for(int i = x; i < boatSpace; i++) {
                 target = cases[i][y];
-                target.setOccupiedBy(selectedBoat);
-                IO.println(Arrays.toString(target.getPos()));
-                getButtonFromACase(target).setStyle("-fx-background-color: red;");
+                placeBoat(target);
             }
         } else {
             int boatSpace = y + selectedBoat.getSize();
             for(int i = y; i < boatSpace; i++) {
                 target = cases[x][i];
-                target.setOccupiedBy(selectedBoat);
-                IO.println(Arrays.toString(target.getPos()));
-                getButtonFromACase(target).setStyle("-fx-background-color: red;");
+                placeBoat(target);
             }
         }
 
+    }
+
+    public void placeBoat(Case target){
+        target.setOccupiedBy(selectedBoat);
+        IO.println(Arrays.toString(target.getPos()));
+        getButtonFromACase(target).setStyle("-fx-background-color: red;");
     }
 
     public Button getButtonFromACase(Case target){
