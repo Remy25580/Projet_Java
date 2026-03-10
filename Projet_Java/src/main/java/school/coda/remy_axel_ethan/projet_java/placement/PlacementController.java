@@ -14,8 +14,8 @@ import school.coda.remy_axel_ethan.projet_java.tools.Grille;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import static school.coda.remy_axel_ethan.projet_java.tools.Grille.CASE_X_POSITION;
-import static school.coda.remy_axel_ethan.projet_java.tools.Grille.CASE_Y_POSITION;
+
+import static school.coda.remy_axel_ethan.projet_java.tools.Grille.*;
 
 public class PlacementController implements Initializable {
     @FXML
@@ -50,13 +50,15 @@ public class PlacementController implements Initializable {
         int x = target.getPos()[0];
         int y = target.getPos()[1];
         if(isHorizontal){
-            for(int i = x; i < x + selectedBoat.getSize(); i++) {
+            int boatSpace = x + selectedBoat.getSize();
+            for(int i = x; i < boatSpace; i++) {
                 target = cases[i][y];
                 target.setOccupiedBy(selectedBoat);
                 IO.println(Arrays.toString(target.getPos()));
             }
         } else {
-            for(int i = y; i < y + selectedBoat.getSize(); i++) {
+            int boatSpace = y + selectedBoat.getSize();
+            for(int i = y; i < boatSpace; i++) {
                 target = cases[x][i];
                 target.setOccupiedBy(selectedBoat);
                 IO.println(Arrays.toString(target.getPos()));

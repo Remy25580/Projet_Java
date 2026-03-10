@@ -5,28 +5,25 @@ import javafx.scene.layout.GridPane;
 
 
 public class Grille {
-
+    public static final int GRID_SIZE = 10;
     public static final String CASE_X_POSITION = "x";
     public static final String CASE_Y_POSITION = "y";
 
     public static Case[][] createGrid(GridPane grid){
-        Case[][] grille = new Case[10][10];
-        for(int x = 0; x < 10; x++){
-            for(int y = 0; y < 10; y++){
+        Case[][] grille = new Case[GRID_SIZE][GRID_SIZE];
+        for(int x = 1; x <= GRID_SIZE; x++){
+            for(int y = 1; y <= GRID_SIZE; y++){
 
                 Button btn = new Button();
                 btn.setStyle("-fx-background-color: blue;" +
                         "-fx-border-color: black;" +
                         "-fx-border-radius: 0;");
 
-
-
-
                 btn.getProperties().put(CASE_X_POSITION,x);
                 btn.getProperties().put(CASE_Y_POSITION,y);
                 grid.add(btn, x, y);
 
-                grille[x][y] = new Case(x,y);
+                grille[x-1][y-1] = new Case(x,y);
             }
         }
         return grille;
