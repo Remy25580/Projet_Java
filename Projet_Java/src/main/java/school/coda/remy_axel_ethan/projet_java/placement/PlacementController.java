@@ -10,7 +10,6 @@ import javafx.scene.layout.GridPane;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
-import school.coda.remy_axel_ethan.projet_java.tools.Grille;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -49,20 +48,56 @@ public class PlacementController implements Initializable {
     public void creationBoat(Case target) {
         int x = target.getPos()[0];
         int y = target.getPos()[1];
-        if(isHorizontal){
-            int boatSpace = x + selectedBoat.getSize();
-            for(int i = x; i < boatSpace; i++) {
-                target = cases[i][y];
-                placeBoat(target);
-            }
-        } else {
-            int boatSpace = y + selectedBoat.getSize();
-            for(int i = y; i < boatSpace; i++) {
-                target = cases[x][i];
-                placeBoat(target);
-            }
+        int size = selectedBoat.getSize();
+
+        if (!isInGrid(x, y, size)) {
+            IO.println("Le bateau sort de la grille !");
+            return;
+        }
+        if (!isCasesFree(x, y, size)) {
+            return;
         }
 
+        applyPlacement(x, y, size);
+    }
+
+    private boolean isInGrid(int x, int y, int size) {
+        if (isHorizontal) {
+            return (x + size) <= GRID_SIZE;
+        } else {
+            return (y + size) <= GRID_SIZE;
+        }
+    }
+
+    private boolean isCasesFree(int x, int y, int size) {
+        for (int i = 0; i < size; i++) {
+            int checkX = isHorizontal ? x + i : x;
+            int checkY = isHorizontal ? y : y + i;
+
+            Case checkTarget = cases[checkX][checkY];
+
+            if (isntCaseValide(checkTarget)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isntCaseValide(Case target) {
+        if (target.getOccupiedBy() != null) {
+            IO.println("Au moins l'une des cases est déjà occupée !");
+            return true;
+        }
+        return false;
+    }
+
+    private void applyPlacement(int x, int y, int size) {
+        for (int i = 0; i < size; i++) {
+            int placeX = isHorizontal ? x + i : x;
+            int placeY = isHorizontal ? y : y + i;
+
+            placeBoat(cases[placeX][placeY]);
+        }
     }
 
     public void placeBoat(Case target){
@@ -82,7 +117,7 @@ public class PlacementController implements Initializable {
             button = (Button) node;
             xButton = (int) button.getProperties().get(CASE_X_POSITION);
             yButton = (int) button.getProperties().get(CASE_Y_POSITION);
-            if(xButton == xTarget & yButton == yTarget){
+            if(xButton == xTarget && yButton == yTarget){
                 return button;
             }
         }
