@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 
 
+<?import javafx.scene.control.Button?>
 <VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="school.coda.remy_axel_ethan.projet_java.placement.PlacementController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
@@ -12,4 +13,11 @@
 
     <Label text="Bienvenue dans la bataille javale!"/>
     <GridPane fx:id="grid"/>
+    <HBox>
+        <Button>Patrouilleur</Button>
+        <Button>Sous-marin</Button>
+        <Button>Destroyer</Button>
+        <Button>Cuirassé</Button>
+        <Button>Porte-avion</Button>
+    </HBox>
 </VBox>

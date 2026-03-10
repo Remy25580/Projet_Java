@@ -10,8 +10,6 @@ import school.coda.remy_axel_ethan.projet_java.placement.BoatPlacement;
 import java.io.IOException;
 
 public class BaseController {
-    @FXML
-    private Label welcomeText;
 
     @FXML
     protected void onHelloButtonClick(ActionEvent event) throws IOException {

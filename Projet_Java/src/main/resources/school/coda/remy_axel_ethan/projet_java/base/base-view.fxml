@@ -12,7 +12,6 @@
     </padding>
 
 
-    <Label fx:id="welcomeText"/>
     <Label text="Bienvenue dans la bataille javale!"/>
     <Button text="Jouer!" onAction="#onHelloButtonClick"/>
 </VBox>
