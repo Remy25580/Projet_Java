@@ -14,6 +14,7 @@ public class BoatPlacement{
         FXMLLoader fxmlLoader = new FXMLLoader(BoatPlacement.class.getResource("placement-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Bataille Javale");
+
         GridPane grid = new GridPane();
         Case[][] grille = new Case[10][10];
         for(int x=1; x < 11; x++){
@@ -21,12 +22,16 @@ public class BoatPlacement{
                 Button btn = new Button();
                 grid.add(btn, x, y);
                 grille[x][y] = new Case(x, y);
-                grid.setOnMouseClicked(_ -> {
-                    int xPos = grid.getColumnIndex(btn);
-                    int yPos = GridPane.getRowIndex(btn);
+                int finalX = x;
+                int finalY = y;
+                btn.setOnMouseClicked(_ -> {
+                    PlacementController controller = new PlacementController();
+                    Case target = controller.getACase(finalX, finalY);
+                    controller.test(target);
                 });
             }
         }
+        scene.
 
 
 
