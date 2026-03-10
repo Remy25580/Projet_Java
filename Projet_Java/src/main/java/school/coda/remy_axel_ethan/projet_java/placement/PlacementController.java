@@ -48,39 +48,39 @@ public class PlacementController implements Initializable {
     public void creationBoat(Case target) {
         int x = target.getPos()[0];
         int y = target.getPos()[1];
+        int size = selectedBoat.getSize();
 
+        if (isInGrid(x, y, size)) {
+            IO.println("Le bateau sort de la grille !");
+            return;
+        }
+        if (!isCasesFree(x, y, size)) {
+            return;
+        }
+
+        applyPlacement(x, y, size);
+    }
+
+    private boolean isInGrid(int x, int y, int size) {
         if (isHorizontal) {
-            int boatSpace = x + selectedBoat.getSize();
-            if (boatSpace > GRID_SIZE) {
-                IO.println("Le bateau sort de la grille !");
-                return;
-            }
-            for (int i = x; i < boatSpace; i++) {
-                Case checkTarget = cases[i][y];
-                if (isntCaseValide(checkTarget)) {
-                    return;
-                }
-            }
-            for (int i = x; i < boatSpace; i++) {
-                placeBoat(cases[i][y]);
-            }
-
+            return (x + size) <= GRID_SIZE;
         } else {
-            int boatSpace = y + selectedBoat.getSize();
-            if (boatSpace > GRID_SIZE) {
-                IO.println("Le bateau sort de la grille !");
-                return;
-            }
-            for (int i = y; i < boatSpace; i++) {
-                Case checkTarget = cases[x][i];
-                if (isntCaseValide(checkTarget)) {
-                    return;
-                }
-            }
-            for (int i = y; i < boatSpace; i++) {
-                placeBoat(cases[x][i]);
+            return (y + size) <= GRID_SIZE;
+        }
+    }
+
+    private boolean isCasesFree(int x, int y, int size) {
+        for (int i = 0; i < size; i++) {
+            int checkX = isHorizontal ? x + i : x;
+            int checkY = isHorizontal ? y : y + i;
+
+            Case checkTarget = cases[checkX][checkY];
+
+            if (isntCaseValide(checkTarget)) {
+                return false;
             }
         }
+        return true;
     }
 
     private boolean isntCaseValide(Case target) {
@@ -89,6 +89,15 @@ public class PlacementController implements Initializable {
             return true;
         }
         return false;
+    }
+
+    private void applyPlacement(int x, int y, int size) {
+        for (int i = 0; i < size; i++) {
+            int placeX = isHorizontal ? x + i : x;
+            int placeY = isHorizontal ? y : y + i;
+
+            placeBoat(cases[placeX][placeY]);
+        }
     }
 
     public void placeBoat(Case target){
