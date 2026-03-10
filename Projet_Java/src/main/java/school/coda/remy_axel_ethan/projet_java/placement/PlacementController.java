@@ -23,8 +23,11 @@ public class PlacementController implements Initializable {
     private Label selectedBoatLabel;
     @FXML
     private Button orientationButton;
+    @FXML
+    private Button PATROUILLEUR, SOUS_MARIN, DESTROYER, CUIRASSE, PORTE_AVION;
 
     private Boat selectedBoat = null;
+    private Button currentBoatButton;
     private boolean isHorizontal = true;
     private Case[][] cases;
 
@@ -59,14 +62,22 @@ public class PlacementController implements Initializable {
         }
 
         applyPlacement(x, y, size);
+
+        if (currentBoatButton != null) {
+            currentBoatButton.setDisable(true);
+            currentBoatButton = null;
+        }
+
+        this.selectedBoat = null;
+        this.selectedBoatLabel.setText("Bateau sélectionné : aucun");
+
     }
 
     private boolean isInGrid(int x, int y, int size) {
         if (isHorizontal) {
             return (x + size) <= GRID_SIZE;
-        } else {
-            return (y + size) <= GRID_SIZE;
         }
+        return (y + size) <= GRID_SIZE;
     }
 
     private boolean isCasesFree(int x, int y, int size) {
@@ -125,9 +136,9 @@ public class PlacementController implements Initializable {
     }
 
     public void selectBoat(ActionEvent actionEvent) {
-        Button clickedButton = (Button) actionEvent.getSource();
+        this.currentBoatButton = (Button) actionEvent.getSource();
 
-        String boatId = clickedButton.getId();
+        String boatId = currentBoatButton.getId();
         BoatType type = BoatType.valueOf(boatId);
         changeSelectedBoat(type);
     }

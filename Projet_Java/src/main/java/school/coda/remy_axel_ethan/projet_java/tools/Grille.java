@@ -17,15 +17,13 @@ public class Grille {
         Case[][] grille = new Case[GRID_SIZE][GRID_SIZE];
         for(int x = 0; x < GRID_SIZE; x++){
             for(int y = 0; y < GRID_SIZE; y++){
-
-                Button btn = new Button();
-                btn.setStyle("-fx-background-color: blue;" +
+                Button button = new Button();
+                button.setStyle("-fx-background-color: blue;" +
                         "-fx-border-color: black;" +
                         "-fx-border-radius: 0;");
-
-                btn.getProperties().put(CASE_X_POSITION,x);
-                btn.getProperties().put(CASE_Y_POSITION,y);
-                grid.add(btn, x, y);
+                button.getProperties().put(CASE_X_POSITION,x);
+                button.getProperties().put(CASE_Y_POSITION,y);
+                grid.add(button, x, y);
 
                 grille[x][y] = new Case(x,y);
             }

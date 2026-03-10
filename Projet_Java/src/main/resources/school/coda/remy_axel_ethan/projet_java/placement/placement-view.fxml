@@ -12,7 +12,7 @@
     </padding>
 
     <Label text="Bienvenue dans la bataille javale!"/>
-    <Label fx:id="selectedBoatLabel" text="Bateau selectioné : aucun"/>
+    <Label fx:id="selectedBoatLabel" text="Bateau sélectionné : aucun"/>
     <GridPane fx:id="grid"/>
 
     <HBox spacing="10.0">
