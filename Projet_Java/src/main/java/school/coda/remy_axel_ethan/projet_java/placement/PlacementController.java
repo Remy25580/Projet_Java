@@ -7,10 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
+import school.coda.remy_axel_ethan.projet_java.in_game.InGame;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import school.coda.remy_axel_ethan.projet_java.tools.Grille;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -111,4 +115,15 @@ public class PlacementController implements Initializable {
             orientationButton.setText("Orientation: Verticale");
         }
     }
+
+
+    @FXML
+    private void goToGame(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource())
+                .getScene()
+                .getWindow();
+        InGame ingame = new InGame();
+        ingame.initGame(stage);
+    }
+
 }
