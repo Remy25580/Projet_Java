@@ -5,6 +5,10 @@ import javafx.scene.layout.GridPane;
 
 
 public class Grille {
+    private Grille() {
+        /* This utility class should not be instantiated */
+    }
+
     public static final int GRID_SIZE = 10;
     public static final String CASE_X_POSITION = "x";
     public static final String CASE_Y_POSITION = "y";
