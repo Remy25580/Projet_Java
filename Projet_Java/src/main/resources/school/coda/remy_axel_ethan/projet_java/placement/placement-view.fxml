@@ -11,4 +11,5 @@
     </padding>
 
     <Label text="Bienvenue dans la bataille javale!"/>
+    <GridPane fx:id="grid"/>
 </VBox>
