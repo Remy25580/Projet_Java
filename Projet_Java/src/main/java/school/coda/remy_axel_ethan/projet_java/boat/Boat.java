@@ -2,20 +2,18 @@ package school.coda.remy_axel_ethan.projet_java.boat;
 
 public class Boat {
 
-    private final String name;
-    private final int size;
+    private final BoatType type;
     private int casesTouch = 0;
 
-    public Boat(String name, int size) {
-        this.name = name;
-        this.size = size;
+    public Boat(BoatType type) {
+        this.type = type;
     }
 
-    public String getName() { return name; }
-    public int getSize() { return size; }
+    public String getName() { return type.getName(); }
+    public int getSize() { return type.getSize(); }
 
     public boolean isSank(){
-        return casesTouch >= size;
+        return casesTouch >= type.getSize();
     }
     public boolean receiveDamage(){
         casesTouch++;
