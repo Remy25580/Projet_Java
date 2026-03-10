@@ -25,5 +25,5 @@
         <Button fx:id="orientationButton" onAction="#toggleOrientation" text="Orientation: Horizontale"/>
     </HBox>
 
-    <Button text="Commencer à jouer!" onAction="#goToGame"/>
+    <!--<Button text="Commencer à jouer!" onAction="#goToGame"/> -->
 </VBox>
