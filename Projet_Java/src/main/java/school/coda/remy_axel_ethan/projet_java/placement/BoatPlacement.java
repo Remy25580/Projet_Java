@@ -1,6 +1,5 @@
 package school.coda.remy_axel_ethan.projet_java.placement;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
