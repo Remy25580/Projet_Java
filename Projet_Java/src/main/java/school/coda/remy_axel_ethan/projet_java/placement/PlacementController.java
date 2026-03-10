@@ -1,10 +1,14 @@
 package school.coda.remy_axel_ethan.projet_java.placement;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import school.coda.remy_axel_ethan.projet_java.boat.Boat;
+import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import school.coda.remy_axel_ethan.projet_java.tools.Grille;
 import java.net.URL;
@@ -14,31 +18,73 @@ import static school.coda.remy_axel_ethan.projet_java.tools.Grille.CASE_X_POSITI
 import static school.coda.remy_axel_ethan.projet_java.tools.Grille.CASE_Y_POSITION;
 
 public class PlacementController implements Initializable {
-    private Case[][] cases;
-
     @FXML
     private GridPane grid;
+    @FXML
+    private Label selectedBoatLabel;
+    @FXML
+    private Button orientationButton;
+
+    private Boat selectedBoat = null;
+    private boolean isHorizontal = true;
+    private Case[][] cases;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        this.cases = Grille.createGrid(grid);
+        cases = Grille.createGrid(grid);
         for (Node child : grid.getChildren()) {
             Button button = (Button) child;
             button.setOnMouseClicked(e -> {
-                Button targetButton = (Button)e.getTarget();
-                int x = (int) targetButton.getProperties().get(CASE_X_POSITION);
-                int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
-                Case target = cases[x][y];
-                test(target);
+                if(selectedBoat != null) {
+                    Button targetButton = (Button)e.getTarget();
+                    int x = (int) targetButton.getProperties().get(CASE_X_POSITION);
+                    int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
+                    Case target = cases[x][y];
+                    creationBoat(target);
+                }
             });
         }
     }
 
+    public void creationBoat(Case target) {
+        int x = target.getPos()[0];
+        int y = target.getPos()[1];
+        if(isHorizontal){
+            for(int i = x; i < x + selectedBoat.getSize(); i++) {
+                target = cases[i][y];
+                target.setOccupiedBy(selectedBoat);
+                IO.println(Arrays.toString(target.getPos()));
+            }
+        } else {
+            for(int i = y; i < y + selectedBoat.getSize(); i++) {
+                target = cases[x][i];
+                target.setOccupiedBy(selectedBoat);
+                IO.println(Arrays.toString(target.getPos()));
+            }
+        }
 
-    public void test(Case c){
-        IO.println(Arrays.toString(c.getPos()));
     }
 
+    public void selectBoat(ActionEvent actionEvent) {
+        Button clickedButton = (Button) actionEvent.getSource();
 
+        String boatId = clickedButton.getId();
+        BoatType type = BoatType.valueOf(boatId);
+        changeSelectedBoat(type);
+    }
+
+    private void changeSelectedBoat(BoatType type) {
+        this.selectedBoat = new Boat(type);
+        this.selectedBoatLabel.setText("Bateau sélectionné : " + type.getType() + " (Taille: " + type.getSize() + ")");
+    }
+
+    @FXML
+    protected void toggleOrientation() {
+        isHorizontal = !isHorizontal;
+        if (isHorizontal) {
+            orientationButton.setText("Orientation: Horizontale");
+        } else {
+            orientationButton.setText("Orientation: Verticale");
+        }
+    }
 }

@@ -12,13 +12,16 @@
     </padding>
 
     <Label text="Bienvenue dans la bataille javale!"/>
-    <Label text="Bateau selectioné : aucun"/>
+    <Label fx:id="selectedBoatLabel" text="Bateau selectioné : aucun"/>
     <GridPane fx:id="grid"/>
-    <HBox>
-        <Button >Patrouilleur</Button>
-        <Button>Sous-marin</Button>
-        <Button>Destroyer</Button>
-        <Button>Cuirassé</Button>
-        <Button>Porte-avion</Button>
+
+    <HBox spacing="10.0">
+        <Button fx:id="PATROUILLEUR" onAction="#selectBoat" text="Patrouilleur"/>
+        <Button fx:id="SOUS_MARIN" onAction="#selectBoat" text="Sous-marin"/>
+        <Button fx:id="DESTROYER" onAction="#selectBoat" text="Destroyer"/>
+        <Button fx:id="CUIRASSE" onAction="#selectBoat" text="Cuirassé"/>
+        <Button fx:id="PORTE_AVION" onAction="#selectBoat" text="Porte-avion"/>
+
+        <Button fx:id="orientationButton" onAction="#toggleOrientation" text="Orientation: Horizontale"/>
     </HBox>
 </VBox>

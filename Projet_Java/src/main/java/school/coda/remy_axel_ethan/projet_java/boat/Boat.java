@@ -9,8 +9,9 @@ public class Boat {
         this.type = type;
     }
 
-    public String getName() { return type.getName(); }
     public int getSize() { return type.getSize(); }
+    public String getType() { return type.getType(); }
+
 
     public boolean isSank(){
         return casesTouch >= type.getSize();

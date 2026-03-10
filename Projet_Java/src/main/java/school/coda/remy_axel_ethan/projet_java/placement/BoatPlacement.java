@@ -8,15 +8,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class BoatPlacement{
-
-
-    public void placement(Stage stage) throws IOException {
+    public void initPlacement(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BoatPlacement.class.getResource("placement-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
-
         stage.setTitle("Bataille Javale");
+
         stage.setScene(scene);
     }
-
 }

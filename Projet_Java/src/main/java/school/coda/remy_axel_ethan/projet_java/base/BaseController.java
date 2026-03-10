@@ -3,7 +3,6 @@ package school.coda.remy_axel_ethan.projet_java.base;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import school.coda.remy_axel_ethan.projet_java.placement.BoatPlacement;
 
@@ -18,6 +17,6 @@ public class BaseController {
                 .getWindow();
 
         BoatPlacement placement = new BoatPlacement();
-        placement.placement(stage);
+        placement.initPlacement(stage);
     }
 }
