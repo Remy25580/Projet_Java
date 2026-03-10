@@ -11,8 +11,8 @@ public class Grille {
 
     public static Case[][] createGrid(GridPane grid){
         Case[][] grille = new Case[GRID_SIZE][GRID_SIZE];
-        for(int x = 1; x <= GRID_SIZE; x++){
-            for(int y = 1; y <= GRID_SIZE; y++){
+        for(int x = 0; x < GRID_SIZE; x++){
+            for(int y = 0; y < GRID_SIZE; y++){
 
                 Button btn = new Button();
                 btn.setStyle("-fx-background-color: blue;" +
@@ -23,7 +23,7 @@ public class Grille {
                 btn.getProperties().put(CASE_Y_POSITION,y);
                 grid.add(btn, x, y);
 
-                grille[x-1][y-1] = new Case(x,y);
+                grille[x][y] = new Case(x,y);
             }
         }
         return grille;
