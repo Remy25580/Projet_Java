@@ -31,7 +31,7 @@ public class PlacementController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cases = Grille.createGrid(grid);
+        cases = createGrid(grid);
         for (Node child : grid.getChildren()) {
             Button button = (Button) child;
             button.setOnMouseClicked(e -> {
@@ -55,6 +55,7 @@ public class PlacementController implements Initializable {
                 target = cases[i][y];
                 target.setOccupiedBy(selectedBoat);
                 IO.println(Arrays.toString(target.getPos()));
+                getButtonFromACase(target).setStyle("-fx-background-color: red;");
             }
         } else {
             int boatSpace = y + selectedBoat.getSize();
@@ -62,9 +63,28 @@ public class PlacementController implements Initializable {
                 target = cases[x][i];
                 target.setOccupiedBy(selectedBoat);
                 IO.println(Arrays.toString(target.getPos()));
+                getButtonFromACase(target).setStyle("-fx-background-color: red;");
             }
         }
 
+    }
+
+    public Button getButtonFromACase(Case target){
+        Button button = null;
+        int xButton;
+        int yButton;
+        int xTarget = target.getPos()[0];
+        int yTarget = target.getPos()[1];
+
+        for(Node node : grid.getChildren()){
+            button = (Button) node;
+            xButton = (int) button.getProperties().get(CASE_X_POSITION);
+            yButton = (int) button.getProperties().get(CASE_Y_POSITION);
+            if(xButton == xTarget & yButton == yTarget){
+                return button;
+            }
+        }
+        return button;
     }
 
     public void selectBoat(ActionEvent actionEvent) {
