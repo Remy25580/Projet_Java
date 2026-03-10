@@ -12,9 +12,10 @@
     </padding>
 
     <Label text="Bienvenue dans la bataille javale!"/>
+    <Label text="Bateau selectioné : aucun"/>
     <GridPane fx:id="grid"/>
     <HBox>
-        <Button>Patrouilleur</Button>
+        <Button >Patrouilleur</Button>
         <Button>Sous-marin</Button>
         <Button>Destroyer</Button>
         <Button>Cuirassé</Button>

@@ -29,25 +29,12 @@ public class PlacementController implements Initializable {
                 Button targetButton = (Button)e.getTarget();
                 int x = (int) targetButton.getProperties().get(CASE_X_POSITION);
                 int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
-                Case target = getACase(x, y);
+                Case target = cases[x][y];
                 test(target);
             });
         }
     }
 
-
-    public Case getACase(int x, int y){
-        for(Case[] line : this.cases){
-            for(Case c : line){
-                int[] coordonnees = {x, y};
-                if (Arrays.equals(c.getPos(), coordonnees)){
-                    return c;
-                }
-
-            }
-        }
-        return null;
-    }
 
     public void test(Case c){
         IO.println(Arrays.toString(c.getPos()));

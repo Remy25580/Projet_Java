@@ -2,10 +2,8 @@ package school.coda.remy_axel_ethan.projet_java.placement;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import school.coda.remy_axel_ethan.projet_java.tools.Case;
-import school.coda.remy_axel_ethan.projet_java.tools.Grille;
+
 
 import java.io.IOException;
 
@@ -18,12 +16,7 @@ public class BoatPlacement{
 
 
         stage.setTitle("Bataille Javale");
-
-
         stage.setScene(scene);
     }
-
-
-
 
 }
