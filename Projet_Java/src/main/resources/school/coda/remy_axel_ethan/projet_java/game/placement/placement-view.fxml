@@ -12,6 +12,7 @@
     </padding>
 
     <Label text="Bienvenue dans la bataille javale!"/>
+    <Label fx:id="nbBoatLabel" text="Bateaux placés : 0"/>
     <Label fx:id="selectedBoatLabel" text="Bateau sélectionné : aucun"/>
     <GridPane fx:id="grid"/>
 
@@ -25,5 +26,5 @@
         <Button fx:id="orientationButton" onAction="#toggleOrientation" text="Orientation: Horizontale"/>
     </HBox>
 
-    <!--<Button text="Commencer à jouer!" onAction="#goToGame"/> -->
+    <Button fx:id="gameStartButton" text="Commencer à jouer!" disable="true"/>
 </VBox>

@@ -25,11 +25,16 @@ public class GameController implements Initializable {
     private Button orientationButton;
     @FXML
     private Button PATROUILLEUR, SOUS_MARIN, DESTROYER, CUIRASSE, PORTE_AVION;
+    @FXML
+    private Label nbBoatLabel;
+    @FXML
+    private Button gameStartButton;
 
     private Boat selectedBoat = null;
     private Button currentBoatButton;
     private boolean isHorizontal = true;
     private Case[][] cases;
+    private int nbBoatPlaced = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,7 +71,10 @@ public class GameController implements Initializable {
         if (currentBoatButton != null) {
             currentBoatButton.setDisable(true);
             currentBoatButton = null;
+            this.nbBoatPlaced++;
+            nbBoatLabel.setText("Bateaux placés : "+nbBoatPlaced);
         }
+        if(nbBoatPlaced == 5){gameStartButton.setDisable(false);}
 
         this.selectedBoat = null;
         this.selectedBoatLabel.setText("Bateau sélectionné : aucun");
