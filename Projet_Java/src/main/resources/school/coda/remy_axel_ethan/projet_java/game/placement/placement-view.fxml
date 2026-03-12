@@ -38,4 +38,5 @@
 
         <Button fx:id="gameStartButton" text="Commencer à jouer!" disable="true" onAction="#initGamePlay"/>
     </VBox>
+    <Label fx:id="caseTouchedErrorMessage"/>
 </VBox>
