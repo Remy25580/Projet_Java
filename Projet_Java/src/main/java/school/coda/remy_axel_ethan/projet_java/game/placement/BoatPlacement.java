@@ -10,7 +10,7 @@ import java.io.IOException;
 public class BoatPlacement{
     public void initPlacement(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BoatPlacement.class.getResource("placement-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 650);
 
         stage.setTitle("Bataille Javale");
 

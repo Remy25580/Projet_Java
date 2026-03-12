@@ -78,7 +78,7 @@ public class GameController implements Initializable {
             currentBoatButton.setDisable(true);
             currentBoatButton = null;
             this.nbBoatPlaced++;
-            nbBoatLabel.setText("Bateaux placés : "+nbBoatPlaced);
+            nbBoatLabel.setText("Bateaux restants : "+(5-nbBoatPlaced));
         }
         if(nbBoatPlaced == 5){gameStartButton.setDisable(false);}
 

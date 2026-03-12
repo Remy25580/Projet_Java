@@ -6,12 +6,12 @@
 
 
 <?import javafx.scene.control.Button?>
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="school.coda.remy_axel_ethan.projet_java.game.GameController">
+<VBox spacing="30.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="school.coda.remy_axel_ethan.projet_java.game.GameController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <Label fx:id="nbBoatLabel" text="Bateaux placés : 0"/>
+    <Label fx:id="nbBoatLabel" text="Bateaux restants : 5"/>
     <Label fx:id="selectedBoatLabel" text="Bateau sélectionné : aucun"/>
 
     <HBox spacing="30.0" alignment="CENTER">
@@ -25,15 +25,17 @@
         </VBox>
     </HBox>
 
-    <HBox spacing="10.0">
-        <Button fx:id="PATROUILLEUR" onAction="#selectBoat" text="Patrouilleur"/>
-        <Button fx:id="SOUS_MARIN" onAction="#selectBoat" text="Sous-marin"/>
-        <Button fx:id="DESTROYER" onAction="#selectBoat" text="Destroyer"/>
-        <Button fx:id="CUIRASSE" onAction="#selectBoat" text="Cuirassé"/>
-        <Button fx:id="PORTE_AVION" onAction="#selectBoat" text="Porte-avion"/>
+    <VBox spacing="10.0">
+        <HBox spacing="10.0">
+            <Button fx:id="PATROUILLEUR" onAction="#selectBoat" text="Patrouilleur"/>
+            <Button fx:id="SOUS_MARIN" onAction="#selectBoat" text="Sous-marin"/>
+            <Button fx:id="DESTROYER" onAction="#selectBoat" text="Destroyer"/>
+            <Button fx:id="CUIRASSE" onAction="#selectBoat" text="Cuirassé"/>
+            <Button fx:id="PORTE_AVION" onAction="#selectBoat" text="Porte-avion"/>
 
-        <Button fx:id="orientationButton" onAction="#toggleOrientation" text="Orientation: Horizontale"/>
-    </HBox>
+            <Button fx:id="orientationButton" onAction="#toggleOrientation" text="Orientation: Horizontale"/>
+        </HBox>
 
-    <Button fx:id="gameStartButton" text="Commencer à jouer!" disable="true" onAction="#initGamePlay"/>
+        <Button fx:id="gameStartButton" text="Commencer à jouer!" disable="true" onAction="#initGamePlay"/>
+    </VBox>
 </VBox>
