@@ -1,4 +1,4 @@
-package school.coda.remy_axel_ethan.projet_java.game.placement;
+package school.coda.remy_axel_ethan.projet_java.game;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 import static school.coda.remy_axel_ethan.projet_java.tools.Grille.*;
 
-public class PlacementController implements Initializable {
+public class GameController implements Initializable {
     @FXML
     private GridPane grid;
     @FXML
