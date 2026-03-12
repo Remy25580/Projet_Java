@@ -34,6 +34,8 @@
             <Button fx:id="PORTE_AVION" onAction="#selectBoat" text="Porte-avion"/>
 
             <Button fx:id="orientationButton" onAction="#toggleOrientation" text="Orientation: Horizontale"/>
+
+            <Button text="Réinitialiser" onAction="#resetGame" />
         </HBox>
 
         <Button fx:id="gameStartButton" text="Commencer à jouer!" disable="true" onAction="#initGamePlay"/>
