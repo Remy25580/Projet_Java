@@ -2,9 +2,7 @@ package school.coda.remy_axel_ethan.projet_java.game.placement;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.fxml.FXML;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 
@@ -15,35 +13,16 @@ import static school.coda.remy_axel_ethan.projet_java.tools.Grille.CASE_Y_POSITI
 
 public class CreationBoat {
 
-    private final Label selectedBoatLabel;
-    private Boat selectedBoat;
+    private final Boat selectedBoat;
     private final BoardRules rules;
-    private Button currentBoatButton;
     private final GridPane grid;
-    private final Button gameStartButton;
-    private int nbBoatPlaced;
-    private final Button PATROUILLEUR;
-    private final Button SOUS_MARIN;
-    private final Button DESTROYER;
-    private final Button CUIRASSE;
-    private final Button PORTE_AVION;
 
-
-
-    public CreationBoat (Boat selectedBoat, BoardRules rules, Button currentBoatButton, GridPane grid, Label selectedBoatLabel, Button gameStartButton, int nbBoatPlaced, Button patrouilleur, Button destroyer, Button sous_marin, Button cuirasse, Button porte_avion) {
+    public CreationBoat(Boat selectedBoat, BoardRules rules, GridPane grid) {
         this.selectedBoat = selectedBoat;
         this.rules = rules;
-        this.currentBoatButton = currentBoatButton;
         this.grid = grid;
-        this.selectedBoatLabel = selectedBoatLabel;
-        this.gameStartButton = gameStartButton;
-        this.nbBoatPlaced = nbBoatPlaced;
-        PATROUILLEUR = patrouilleur;
-        SOUS_MARIN = sous_marin;
-        DESTROYER = destroyer;
-        CUIRASSE = cuirasse;
-        PORTE_AVION = porte_avion;
     }
+
     public boolean tryPlacement(Case target) {
         int x = target.getPos()[0];
         int y = target.getPos()[1];
@@ -58,12 +37,6 @@ public class CreationBoat {
         }
 
         applyPlacement(x, y, size);
-
-        if (currentBoatButton != null) {
-            currentBoatButton.setDisable(true);
-        }
-
-        this.selectedBoatLabel.setText("Bateau sélectionné : aucun");
 
         return true;
     }
@@ -101,30 +74,5 @@ public class CreationBoat {
             }
         }
         return button;
-    }
-
-    @FXML
-    public void resetGame() {
-        for (Case[] aCase : rules.cases) {
-            for (Case currentCase : aCase) {
-                currentCase.setOccupiedBy(null);
-
-                Button btn = getButtonFromACase(currentCase);
-                if (btn != null) {
-                    btn.setStyle("-fx-background-color: blue;" +
-                            "-fx-border-color: black;" +
-                            "-fx-border-radius: 0;");
-                }
-            }
-        }
-
-        Button[] boatButtons = {PATROUILLEUR, SOUS_MARIN, DESTROYER, CUIRASSE, PORTE_AVION};
-        for (Button b : boatButtons) {
-            if (b != null) b.setDisable(false);
-        }
-
-        this.nbBoatPlaced = 0;
-        this.selectedBoat = null;
-        this.currentBoatButton = null;
     }
 }

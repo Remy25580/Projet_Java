@@ -15,6 +15,7 @@ import school.coda.remy_axel_ethan.projet_java.game.placement.BoardRules;
 import school.coda.remy_axel_ethan.projet_java.game.placement.CreationBoat;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static school.coda.remy_axel_ethan.projet_java.tools.Grille.*;
@@ -63,9 +64,11 @@ public class GameController implements Initializable {
                     int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
                     Case target = rules.cases[x][y];
 
-                    creation = new CreationBoat(selectedBoat, rules, currentBoatButton, grid, selectedBoatLabel, gameStartButton, nbBoatPlaced, PATROUILLEUR, DESTROYER, SOUS_MARIN, CUIRASSE, PORTE_AVION);
+                    creation = new CreationBoat(selectedBoat, rules, grid);
 
                     if (creation.tryPlacement(target)) {
+                        currentBoatButton.setDisable(true);
+                        selectedBoatLabel.setText("Bateau sélectionné : aucun");
                         nbBoatPlaced++;
                         selectedBoat = null;
                         currentBoatButton = null;
@@ -115,9 +118,28 @@ public class GameController implements Initializable {
         rules.isHorizontal = !rules.isHorizontal;
         if (rules.isHorizontal) {
             orientationButton.setText("Orientation: Horizontale");
-        } else {
-            orientationButton.setText("Orientation: Verticale");
+            return;
         }
+        orientationButton.setText("Orientation: Verticale");
+    }
+
+    @FXML
+    public void resetGame() {
+        for (Case[] row : rules.cases) {
+            for (Case c : row) {
+                c.setOccupiedBy(null);
+            }
+        }
+
+        grid.getChildren().forEach(node -> node.setStyle("-fx-background-color: blue;-fx-border-color: black;-fx-border-radius: 0;"));
+
+        List.of(PATROUILLEUR, SOUS_MARIN, DESTROYER, CUIRASSE, PORTE_AVION).forEach(btn -> btn.setDisable(false));
+
+        nbBoatPlaced = 0;
+        selectedBoat = null;
+        currentBoatButton = null;
+        selectedBoatLabel.setText("Bateau sélectionné : aucun");
+        gameStartButton.setDisable(true);
     }
 
     @FXML
