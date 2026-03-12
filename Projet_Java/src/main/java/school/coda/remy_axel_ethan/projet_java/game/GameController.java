@@ -1,5 +1,6 @@
 package school.coda.remy_axel_ethan.projet_java.game;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
 import school.coda.remy_axel_ethan.projet_java.game.placement.BoardRules;
@@ -41,10 +43,13 @@ public class GameController implements Initializable {
 
 
     BoardRules rules = new BoardRules();
+    CreationBoat creation;
     private Boat selectedBoat = null;
     private Button currentBoatButton;
 
     private int nbBoatPlaced = 0;
+
+    PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -58,7 +63,7 @@ public class GameController implements Initializable {
                     int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
                     Case target = rules.cases[x][y];
 
-                    CreationBoat creation = new CreationBoat(selectedBoat, rules, currentBoatButton, grid, selectedBoatLabel, gameStartButton, nbBoatPlaced, PATROUILLEUR, DESTROYER, SOUS_MARIN, CUIRASSE, PORTE_AVION);
+                    creation = new CreationBoat(selectedBoat, rules, currentBoatButton, grid, selectedBoatLabel, gameStartButton, nbBoatPlaced, PATROUILLEUR, DESTROYER, SOUS_MARIN, CUIRASSE, PORTE_AVION);
 
                     if (creation.tryPlacement(target)) {
                         nbBoatPlaced++;
@@ -72,6 +77,24 @@ public class GameController implements Initializable {
                 }
             });
         }
+    }
+
+    public void resultShoot(String message) {
+        caseTouchedErrorMessage.setText(message);
+        pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
+        pause.play();
+    }
+
+    public void updateColorCase(boolean touchedBoat, Case target){
+        if(touchedBoat){
+            creation.getButtonFromACase(target).setStyle("-fx-background-color: red;" +
+                    "-fx-border-color: black;" +
+                    "-fx-border-radius: 0;");
+            return;
+        }
+        creation.getButtonFromACase(target).setStyle("-fx-background-color: gray;" +
+                "-fx-border-color: black;" +
+                "-fx-border-radius: 0;");
     }
 
     public void selectBoat(ActionEvent actionEvent) {
@@ -122,32 +145,4 @@ public class GameController implements Initializable {
         yourGridTitle.setVisible(true);
         yourGridTitle.setManaged(true);
     }
-
-//    public void shoot(Case target){
-//        PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
-//        if (target.getTouched()){
-//            caseTouchedErrorMessage.setText("Cette case a déjà été touchée !!");
-//            pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
-//            pause.play();
-//            return;
-//        }
-//        target.changeTouched();
-//        if(target.getOccupiedBy() != null){
-//            target.getOccupiedBy().receiveDamage();
-//            getButtonFromACase(target).setStyle("-fx-background-color: red;" +
-//                    "-fx-border-color: black;" +
-//                    "-fx-border-radius: 0;");
-//            caseTouchedErrorMessage.setText(target.getOccupiedBy().getType() + " touché !");
-//            pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
-//            pause.play();
-//        }else{
-//            target.getOccupiedBy().receiveDamage();
-//            getButtonFromACase(target).setStyle("-fx-background-color: gray;" +
-//                    "-fx-border-color: black;" +
-//                    "-fx-border-radius: 0;");
-//            caseTouchedErrorMessage.setText("Aucune cible touchée . . .");
-//            pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
-//            pause.play();
-//        }
-//    }
 }
