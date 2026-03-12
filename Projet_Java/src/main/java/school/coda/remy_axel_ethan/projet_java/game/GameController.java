@@ -13,6 +13,8 @@ import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 import static school.coda.remy_axel_ethan.projet_java.tools.Grille.*;
 
@@ -41,7 +43,7 @@ public class GameController implements Initializable {
     private Boat selectedBoat = null;
     private Button currentBoatButton;
     private boolean isHorizontal = true;
-    protected Case[][] cases;
+    private Case[][] cases;
     private int nbBoatPlaced = 0;
 
     @Override
@@ -203,5 +205,34 @@ public class GameController implements Initializable {
         yourGridTitle.setVisible(true);
         yourGridTitle.setManaged(true);
     }
+
+    public void shoot(Case target){
+        PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+        if (target.getTouched()){
+            caseTouchedErrorMessage.setText("Cette case a déjà été touchée !!");
+            pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
+            pause.play();
+            return;
+        }
+        target.changeTouched();
+        if(target.getOccupiedBy() != null){
+            target.getOccupiedBy().receiveDamage();
+            getButtonFromACase(target).setStyle("-fx-background-color: red;" +
+                    "-fx-border-color: black;" +
+                    "-fx-border-radius: 0;");
+            caseTouchedErrorMessage.setText(target.getOccupiedBy().getType() + " touché !");
+            pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
+            pause.play();
+        }else{
+            target.getOccupiedBy().receiveDamage();
+            getButtonFromACase(target).setStyle("-fx-background-color: gray;" +
+                    "-fx-border-color: black;" +
+                    "-fx-border-radius: 0;");
+            caseTouchedErrorMessage.setText("Aucune cible touchée . . .");
+            pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
+            pause.play();
+        }
+    }
+
 
 }
