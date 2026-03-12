@@ -177,31 +177,29 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    private void initGamePlay(){
-        gameStartButton.setVisible(false);
-        gameStartButton.setManaged(false);
-        PATROUILLEUR.setVisible(false);
-        PATROUILLEUR.setManaged(false);
-        SOUS_MARIN.setVisible(false);
-        SOUS_MARIN.setManaged(false);
-        DESTROYER.setVisible(false);
-        DESTROYER.setManaged(false);
-        CUIRASSE.setVisible(false);
-        CUIRASSE.setManaged(false);
-        PORTE_AVION.setVisible(false);
-        PORTE_AVION.setManaged(false);
-        resetButton.setVisible(false);
-        resetButton.setManaged(false);
-        selectedBoatLabel.setVisible(false);
-        selectedBoatLabel.setManaged(false);
-        orientationButton.setVisible(false);
-        orientationButton.setManaged(false);
+    private void initGamePlay() {
+        hidePlacementUI();
+        showInGameUI();
+    }
 
-        opponentGrid.setVisible(true);
-        opponentGrid.setManaged(true);
-        opponentGridTitle.setVisible(true);
-        opponentGridTitle.setManaged(true);
-        yourGridTitle.setVisible(true);
-        yourGridTitle.setManaged(true);
+    private void hidePlacementUI() {
+        List<Node> nodesToHide = List.of(
+                gameStartButton, PATROUILLEUR, SOUS_MARIN, DESTROYER,
+                CUIRASSE, PORTE_AVION, resetButton, selectedBoatLabel, orientationButton
+        );
+
+        for (Node node : nodesToHide) {
+            node.setVisible(false);
+            node.setManaged(false);
+        }
+    }
+
+    private void showInGameUI() {
+        List<Node> nodesToShow = List.of(opponentGrid, opponentGridTitle, yourGridTitle);
+
+        for (Node node : nodesToShow) {
+            node.setVisible(true);
+            node.setManaged(true);
+        }
     }
 }
