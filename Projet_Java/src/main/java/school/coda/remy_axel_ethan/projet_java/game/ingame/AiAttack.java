@@ -1,10 +1,14 @@
 package school.coda.remy_axel_ethan.projet_java.game.ingame;
 
+import school.coda.remy_axel_ethan.projet_java.game.GameController;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 
 import java.util.Random;
 
 public class AiAttack extends Attack{
+    public AiAttack(GameController controller) {
+        super(controller);
+    }
 //    private final Random rand = new Random();
 //
 //    private void AiTurn(){
