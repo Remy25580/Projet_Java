@@ -5,25 +5,32 @@ import school.coda.remy_axel_ethan.projet_java.tools.Case;
 
 import java.util.Random;
 
-public class AiAttack extends Attack{
-    public AiAttack(GameController controller) {
-        super(controller);
-    }
-//    private final Random rand = new Random();
-//
-//    private void AiTurn(){
-//        Case target = null;
-//        int xRandom;
-//        int yRandom;
-//
-//        while (target == null){
-//            xRandom = rand.nextInt(10);
-//            yRandom = rand.nextInt(10);
-//            if(!cases[xRandom][yRandom].getTouched()){
-//                target = cases[xRandom][yRandom];
-//            }
-//        }
-//        shoot(target);
-//    }
+import static school.coda.remy_axel_ethan.projet_java.tools.Grille.GRID_SIZE;
 
+public class AiAttack extends Attack{
+
+    private final Random rand = new Random();
+    private final Case[][] cases;
+
+    private AiAttack(GameController controller, Case[][] cases) {
+        super(controller);
+        this.cases = cases;
+    }
+
+    public void aiTurn() {
+        Case target = getRandomTarget();
+        shoot(target);
+    }
+
+    private Case getRandomTarget() {
+        while (true) {
+            int xRandom = rand.nextInt(GRID_SIZE);
+            int yRandom = rand.nextInt(GRID_SIZE);
+            Case target = cases[xRandom][yRandom];
+
+            if (!target.getTouched()) {
+                return target;
+            }
+        }
+    }
 }
