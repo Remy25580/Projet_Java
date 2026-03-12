@@ -15,6 +15,7 @@
     <Label fx:id="nbBoatLabel" text="Bateaux placés : 0"/>
     <Label fx:id="selectedBoatLabel" text="Bateau sélectionné : aucun"/>
     <GridPane fx:id="grid"/>
+    <GridPane fx:id="opponentGrid"/>
 
     <HBox spacing="10.0">
         <Button fx:id="PATROUILLEUR" onAction="#selectBoat" text="Patrouilleur"/>
@@ -26,5 +27,5 @@
         <Button fx:id="orientationButton" onAction="#toggleOrientation" text="Orientation: Horizontale"/>
     </HBox>
 
-    <Button fx:id="gameStartButton" text="Commencer à jouer!" disable="true"/>
+    <Button fx:id="gameStartButton" text="Commencer à jouer!" disable="true" onAction="#initGamePlay"/>
 </VBox>

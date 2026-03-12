@@ -29,6 +29,8 @@ public class GameController implements Initializable {
     private Label nbBoatLabel;
     @FXML
     private Button gameStartButton;
+    @FXML
+    private GridPane opponentGrid;
 
     private Boat selectedBoat = null;
     private Button currentBoatButton;
@@ -164,5 +166,28 @@ public class GameController implements Initializable {
         } else {
             orientationButton.setText("Orientation: Verticale");
         }
+    }
+
+    @FXML
+    private void initGamePlay(){
+        gameStartButton.setVisible(false);
+        gameStartButton.setManaged(false);
+        PATROUILLEUR.setVisible(false);
+        PATROUILLEUR.setManaged(false);
+        SOUS_MARIN.setVisible(false);
+        SOUS_MARIN.setManaged(false);
+        DESTROYER.setVisible(false);
+        DESTROYER.setManaged(false);
+        CUIRASSE.setVisible(false);
+        CUIRASSE.setManaged(false);
+        PORTE_AVION.setVisible(false);
+        PORTE_AVION.setManaged(false);
+        selectedBoatLabel.setVisible(false);
+        selectedBoatLabel.setManaged(false);
+        orientationButton.setVisible(false);
+        orientationButton.setManaged(false);
+        nbBoatLabel.setVisible(false);
+        nbBoatLabel.setManaged(false);
+
     }
 }
