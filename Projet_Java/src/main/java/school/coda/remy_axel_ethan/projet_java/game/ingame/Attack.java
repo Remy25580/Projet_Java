@@ -7,7 +7,7 @@ import school.coda.remy_axel_ethan.projet_java.tools.Case;
 
 public class Attack extends GameController {
 
-    public void shoot(Case target){
+    protected void shoot(Case target){
         PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
         if (target.getTouched()){
             caseTouchedErrorMessage.setText("Cette case a déjà été touchée !!");

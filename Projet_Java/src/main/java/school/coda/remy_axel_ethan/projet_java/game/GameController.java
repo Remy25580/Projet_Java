@@ -18,7 +18,7 @@ import static school.coda.remy_axel_ethan.projet_java.tools.Grille.*;
 
 public class GameController implements Initializable {
     @FXML
-    public GridPane grid;
+    protected GridPane grid;
     @FXML
     private Label selectedBoatLabel;
     @FXML
@@ -36,12 +36,12 @@ public class GameController implements Initializable {
     @FXML
     private  Label yourGridTitle;
     @FXML
-    public Label caseTouchedErrorMessage;
+    protected Label caseTouchedErrorMessage;
 
     private Boat selectedBoat = null;
     private Button currentBoatButton;
     private boolean isHorizontal = true;
-    private Case[][] cases;
+    protected Case[][] cases;
     private int nbBoatPlaced = 0;
 
     @Override
