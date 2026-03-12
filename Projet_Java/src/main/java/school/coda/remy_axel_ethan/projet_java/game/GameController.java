@@ -9,18 +9,17 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
+import school.coda.remy_axel_ethan.projet_java.game.placement.BoardRules;
+import school.coda.remy_axel_ethan.projet_java.game.placement.CreationBoat;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
-import javafx.animation.PauseTransition;
-import javafx.util.Duration;
 
 import static school.coda.remy_axel_ethan.projet_java.tools.Grille.*;
 
 public class GameController implements Initializable {
     @FXML
-    protected GridPane grid;
+    private GridPane grid;
     @FXML
     private Label selectedBoatLabel;
     @FXML
@@ -28,9 +27,9 @@ public class GameController implements Initializable {
     @FXML
     private Button PATROUILLEUR, SOUS_MARIN, DESTROYER, CUIRASSE, PORTE_AVION;
     @FXML
-    private Label nbBoatLabel;
-    @FXML
     private Button gameStartButton;
+    @FXML
+    private Button currentBoatButton;
     @FXML
     private GridPane opponentGrid;
     @FXML
@@ -38,17 +37,15 @@ public class GameController implements Initializable {
     @FXML
     private  Label yourGridTitle;
     @FXML
-    protected Label caseTouchedErrorMessage;
+    private Label caseTouchedErrorMessage;
 
+    BoardRules rules = new BoardRules();
     private Boat selectedBoat = null;
-    private Button currentBoatButton;
-    private boolean isHorizontal = true;
-    protected Case[][] cases;
     private int nbBoatPlaced = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cases = createGrid(grid);
+        rules.cases = createGrid(grid);
         for (Node child : grid.getChildren()) {
             Button button = (Button) child;
             button.setOnMouseClicked(e -> {
@@ -56,103 +53,23 @@ public class GameController implements Initializable {
                     Button targetButton = (Button)e.getTarget();
                     int x = (int) targetButton.getProperties().get(CASE_X_POSITION);
                     int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
-                    Case target = cases[x][y];
-                    creationBoat(target);
+                    Case target = rules.cases[x][y];
+
+                    CreationBoat creation = new CreationBoat(selectedBoat, rules, currentBoatButton, grid, selectedBoatLabel, gameStartButton, nbBoatPlaced);
+
+                    if (creation.tryPlacement(target)) {
+                        nbBoatPlaced++;
+                        selectedBoat = null;
+                        currentBoatButton = null;
+
+                        // On vérifie si les 5 bateaux sont placés
+                        if(nbBoatPlaced == 5) {
+                            gameStartButton.setDisable(false);
+                        }
+                    }
                 }
             });
         }
-    }
-
-    public void creationBoat(Case target) {
-        int x = target.getPos()[0];
-        int y = target.getPos()[1];
-        int size = selectedBoat.getSize();
-
-        if (!isInGrid(x, y, size)) {
-            IO.println("Le bateau sort de la grille !");
-            return;
-        }
-        if (!isCasesFree(x, y, size)) {
-            return;
-        }
-
-        applyPlacement(x, y, size);
-
-        if (currentBoatButton != null) {
-            currentBoatButton.setDisable(true);
-            currentBoatButton = null;
-            this.nbBoatPlaced++;
-            nbBoatLabel.setText("Bateaux restants : "+(5-nbBoatPlaced));
-        }
-        if(nbBoatPlaced == 5){gameStartButton.setDisable(false);}
-
-        this.selectedBoat = null;
-        this.selectedBoatLabel.setText("Bateau sélectionné : aucun");
-
-    }
-
-    private boolean isInGrid(int x, int y, int size) {
-        if (isHorizontal) {
-            return (x + size) <= GRID_SIZE;
-        }
-        return (y + size) <= GRID_SIZE;
-    }
-
-    private boolean isCasesFree(int x, int y, int size) {
-        for (int i = 0; i < size; i++) {
-            int checkX = isHorizontal ? x + i : x;
-            int checkY = isHorizontal ? y : y + i;
-
-            Case checkTarget = cases[checkX][checkY];
-
-            if (isntCaseValide(checkTarget)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean isntCaseValide(Case target) {
-        if (target.getOccupiedBy() != null) {
-            IO.println("Au moins l'une des cases est déjà occupée !");
-            return true;
-        }
-        return false;
-    }
-
-    private void applyPlacement(int x, int y, int size) {
-        for (int i = 0; i < size; i++) {
-            int placeX = isHorizontal ? x + i : x;
-            int placeY = isHorizontal ? y : y + i;
-
-            placeBoat(cases[placeX][placeY]);
-        }
-    }
-
-    public void placeBoat(Case target){
-        target.setOccupiedBy(selectedBoat);
-        IO.println(Arrays.toString(target.getPos()));
-        getButtonFromACase(target).setStyle("-fx-background-color: red;" +
-                "-fx-border-color: black;" +
-                "-fx-border-radius: 0;");
-    }
-
-    public Button getButtonFromACase(Case target){
-        Button button = null;
-        int xButton;
-        int yButton;
-        int xTarget = target.getPos()[0];
-        int yTarget = target.getPos()[1];
-
-        for(Node node : grid.getChildren()){
-            button = (Button) node;
-            xButton = (int) button.getProperties().get(CASE_X_POSITION);
-            yButton = (int) button.getProperties().get(CASE_Y_POSITION);
-            if(xButton == xTarget && yButton == yTarget){
-                return button;
-            }
-        }
-        return button;
     }
 
     public void selectBoat(ActionEvent actionEvent) {
@@ -170,8 +87,8 @@ public class GameController implements Initializable {
 
     @FXML
     protected void toggleOrientation() {
-        isHorizontal = !isHorizontal;
-        if (isHorizontal) {
+        rules.isHorizontal = !rules.isHorizontal;
+        if (rules.isHorizontal) {
             orientationButton.setText("Orientation: Horizontale");
         } else {
             orientationButton.setText("Orientation: Verticale");
@@ -196,8 +113,6 @@ public class GameController implements Initializable {
         selectedBoatLabel.setManaged(false);
         orientationButton.setVisible(false);
         orientationButton.setManaged(false);
-        nbBoatLabel.setVisible(false);
-        nbBoatLabel.setManaged(false);
         opponentGrid.setVisible(true);
         opponentGrid.setManaged(true);
         opponentGridTitle.setVisible(true);
@@ -206,4 +121,31 @@ public class GameController implements Initializable {
         yourGridTitle.setManaged(true);
     }
 
+//    public void shoot(Case target){
+//        PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+//        if (target.getTouched()){
+//            caseTouchedErrorMessage.setText("Cette case a déjà été touchée !!");
+//            pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
+//            pause.play();
+//            return;
+//        }
+//        target.changeTouched();
+//        if(target.getOccupiedBy() != null){
+//            target.getOccupiedBy().receiveDamage();
+//            getButtonFromACase(target).setStyle("-fx-background-color: red;" +
+//                    "-fx-border-color: black;" +
+//                    "-fx-border-radius: 0;");
+//            caseTouchedErrorMessage.setText(target.getOccupiedBy().getType() + " touché !");
+//            pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
+//            pause.play();
+//        }else{
+//            target.getOccupiedBy().receiveDamage();
+//            getButtonFromACase(target).setStyle("-fx-background-color: gray;" +
+//                    "-fx-border-color: black;" +
+//                    "-fx-border-radius: 0;");
+//            caseTouchedErrorMessage.setText("Aucune cible touchée . . .");
+//            pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
+//            pause.play();
+//        }
+//    }
 }
