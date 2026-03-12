@@ -18,6 +18,7 @@ public class Grille {
         for(int x = 0; x < GRID_SIZE; x++){
             for(int y = 0; y < GRID_SIZE; y++){
                 Button button = new Button();
+                button.setPrefSize(40, 40);
                 button.setStyle("-fx-background-color: blue;" +
                         "-fx-border-color: black;" +
                         "-fx-border-radius: 0;");

@@ -124,7 +124,9 @@ public class GameController implements Initializable {
     public void placeBoat(Case target){
         target.setOccupiedBy(selectedBoat);
         IO.println(Arrays.toString(target.getPos()));
-        getButtonFromACase(target).setStyle("-fx-background-color: red;");
+        getButtonFromACase(target).setStyle("-fx-background-color: red;" +
+                "-fx-border-color: black;" +
+                "-fx-border-radius: 0;");
     }
 
     public Button getButtonFromACase(Case target){
