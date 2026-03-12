@@ -31,6 +31,10 @@ public class GameController implements Initializable {
     private Button gameStartButton;
     @FXML
     private GridPane opponentGrid;
+    @FXML
+    private Label opponentGridTitle;
+    @FXML
+    private  Label yourGridTitle;
 
     private Boat selectedBoat = null;
     private Button currentBoatButton;
@@ -190,6 +194,11 @@ public class GameController implements Initializable {
         orientationButton.setManaged(false);
         nbBoatLabel.setVisible(false);
         nbBoatLabel.setManaged(false);
-
+        opponentGridTitle.setVisible(true);
+        opponentGridTitle.setManaged(true);
+        yourGridTitle.setVisible(true);
+        yourGridTitle.setManaged(true);
+        opponentGrid.setVisible(true);
+        opponentGrid.setManaged(true);
     }
 }

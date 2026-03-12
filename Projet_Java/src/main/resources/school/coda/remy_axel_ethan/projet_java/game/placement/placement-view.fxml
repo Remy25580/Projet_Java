@@ -11,11 +11,19 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <Label text="Bienvenue dans la bataille javale!"/>
     <Label fx:id="nbBoatLabel" text="Bateaux placés : 0"/>
     <Label fx:id="selectedBoatLabel" text="Bateau sélectionné : aucun"/>
-    <GridPane fx:id="grid"/>
-    <GridPane fx:id="opponentGrid"/>
+
+    <HBox spacing="30.0" alignment="CENTER">
+        <VBox>
+            <Label fx:id="opponentGridTitle" text="Adversaire : " managed="false" visible="false"/>
+            <GridPane fx:id="opponentGrid" managed="false" visible="false"/>
+        </VBox>
+        <VBox>
+            <Label fx:id="yourGridTitle" text="Vos bateaux : " managed="false" visible="false"/>
+            <GridPane fx:id="grid"/>
+        </VBox>
+    </HBox>
 
     <HBox spacing="10.0">
         <Button fx:id="PATROUILLEUR" onAction="#selectBoat" text="Patrouilleur"/>
