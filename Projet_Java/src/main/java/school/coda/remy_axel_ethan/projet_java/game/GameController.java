@@ -36,6 +36,9 @@ public class GameController implements Initializable {
     private  Label yourGridTitle;
     @FXML
     private Label caseTouchedErrorMessage;
+    @FXML
+    protected Button resetButton;
+
 
     BoardRules rules = new BoardRules();
     private Boat selectedBoat = null;
@@ -55,7 +58,7 @@ public class GameController implements Initializable {
                     int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
                     Case target = rules.cases[x][y];
 
-                    CreationBoat creation = new CreationBoat(selectedBoat, rules, currentBoatButton, grid, selectedBoatLabel, gameStartButton, nbBoatPlaced);
+                    CreationBoat creation = new CreationBoat(selectedBoat, rules, currentBoatButton, grid, selectedBoatLabel, gameStartButton, nbBoatPlaced, PATROUILLEUR, DESTROYER, SOUS_MARIN, CUIRASSE, PORTE_AVION);
 
                     if (creation.tryPlacement(target)) {
                         nbBoatPlaced++;
