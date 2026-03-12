@@ -16,13 +16,11 @@ public class CreationBoat {
     private final Boat selectedBoat;
     private final Case[][] cases;
     private final boolean isHorizontal;
-    private final GridPane grid;
 
-    public CreationBoat(Boat selectedBoat, boolean isHorizontal, Case[][] cases, GridPane grid) {
+    public CreationBoat(Boat selectedBoat, boolean isHorizontal, Case[][] cases) {
         this.selectedBoat = selectedBoat;
         this.isHorizontal = isHorizontal;
         this.cases = cases;
-        this.grid = grid;
     }
 
     public boolean tryPlacement(Case target) {
@@ -55,26 +53,5 @@ public class CreationBoat {
     public void placeBoat(Case target){
         target.setOccupiedBy(selectedBoat);
         IO.println(Arrays.toString(target.getPos()));
-        getButtonFromACase(target).setStyle("-fx-background-color: red;" +
-                "-fx-border-color: black;" +
-                "-fx-border-radius: 0;");
-    }
-
-    public Button getButtonFromACase(Case target){
-        Button button = null;
-        int xButton;
-        int yButton;
-        int xTarget = target.getPos()[0];
-        int yTarget = target.getPos()[1];
-
-        for(Node node : grid.getChildren()){
-            button = (Button) node;
-            xButton = (int) button.getProperties().get(CASE_X_POSITION);
-            yButton = (int) button.getProperties().get(CASE_Y_POSITION);
-            if(xButton == xTarget && yButton == yTarget){
-                return button;
-            }
-        }
-        return button;
     }
 }

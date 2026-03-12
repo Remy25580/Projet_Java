@@ -55,30 +55,48 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cases = createGrid(grid);
+
         for (Node child : grid.getChildren()) {
             Button button = (Button) child;
-            button.setOnMouseClicked(e -> {
-                if(selectedBoat != null) {
-                    Button targetButton = (Button)e.getTarget();
-                    int x = (int) targetButton.getProperties().get(CASE_X_POSITION);
-                    int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
-                    Case target = cases[x][y];
+            button.setOnMouseClicked(e -> handleGridClick(button));
+        }
+    }
+    private void handleGridClick(Button targetButton) {
+        if (selectedBoat == null) return;
 
-                    creation = new CreationBoat(selectedBoat, isHorizontal, cases, grid);
+        int x = (int) targetButton.getProperties().get(CASE_X_POSITION);
+        int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
+        Case target = cases[x][y];
 
-                    if (creation.tryPlacement(target)) {
-                        currentBoatButton.setDisable(true);
-                        selectedBoatLabel.setText("Bateau sélectionné : aucun");
-                        nbBoatPlaced++;
-                        selectedBoat = null;
-                        currentBoatButton = null;
+        creation = new CreationBoat(selectedBoat, isHorizontal, cases);
 
-                        if(nbBoatPlaced == 5) {
-                            gameStartButton.setDisable(false);
-                        }
-                    }
-                }
-            });
+        if (creation.tryPlacement(target)) {
+            refreshGridUI();
+            updateUiAfterPlacement();
+        }
+    }
+
+    private void refreshGridUI() {
+        for (Node node : grid.getChildren()) {
+            Button btn = (Button) node;
+            int x = (int) btn.getProperties().get(CASE_X_POSITION);
+            int y = (int) btn.getProperties().get(CASE_Y_POSITION);
+
+            if (cases[x][y].getOccupiedBy() != null) {
+                btn.setStyle("-fx-background-color: red;-fx-border-color: black;-fx-border-radius: 0;");
+            }
+        }
+    }
+
+    private void updateUiAfterPlacement() {
+        currentBoatButton.setDisable(true);
+        selectedBoatLabel.setText("Bateau sélectionné : aucun");
+        nbBoatPlaced++;
+        selectedBoat = null;
+        currentBoatButton = null;
+
+        if (nbBoatPlaced == 5) {
+            gameStartButton.setDisable(false);
         }
     }
 
@@ -88,14 +106,30 @@ public class GameController implements Initializable {
         pause.play();
     }
 
+    public Button getButtonFromACase(Case target) {
+        int xTarget = target.getPos()[0];
+        int yTarget = target.getPos()[1];
+
+        for (Node node : grid.getChildren()) {
+            Button button = (Button) node;
+            int xButton = (int) button.getProperties().get(CASE_X_POSITION);
+            int yButton = (int) button.getProperties().get(CASE_Y_POSITION);
+
+            if (xButton == xTarget && yButton == yTarget) {
+                return button;
+            }
+        }
+        return null;
+    }
+
     public void updateColorCase(boolean touchedBoat, Case target){
         if(touchedBoat){
-            creation.getButtonFromACase(target).setStyle("-fx-background-color: red;" +
+            getButtonFromACase(target).setStyle("-fx-background-color: red;" +
                     "-fx-border-color: black;" +
                     "-fx-border-radius: 0;");
             return;
         }
-        creation.getButtonFromACase(target).setStyle("-fx-background-color: gray;" +
+        getButtonFromACase(target).setStyle("-fx-background-color: gray;" +
                 "-fx-border-color: black;" +
                 "-fx-border-radius: 0;");
     }
