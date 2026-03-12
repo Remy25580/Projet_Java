@@ -11,7 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
-import school.coda.remy_axel_ethan.projet_java.game.placement.BoardRules;
 import school.coda.remy_axel_ethan.projet_java.game.placement.CreationBoat;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import java.net.URL;
@@ -43,18 +42,19 @@ public class GameController implements Initializable {
     protected Button resetButton;
 
 
-    BoardRules rules = new BoardRules();
+    private Case[][] cases;
+    private boolean isHorizontal = true;
+
     CreationBoat creation;
     private Boat selectedBoat = null;
     private Button currentBoatButton;
-
     private int nbBoatPlaced = 0;
 
     PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        rules.cases = createGrid(grid);
+        cases = createGrid(grid);
         for (Node child : grid.getChildren()) {
             Button button = (Button) child;
             button.setOnMouseClicked(e -> {
@@ -62,9 +62,9 @@ public class GameController implements Initializable {
                     Button targetButton = (Button)e.getTarget();
                     int x = (int) targetButton.getProperties().get(CASE_X_POSITION);
                     int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
-                    Case target = rules.cases[x][y];
+                    Case target = cases[x][y];
 
-                    creation = new CreationBoat(selectedBoat, rules, grid);
+                    creation = new CreationBoat(selectedBoat, isHorizontal, cases, grid);
 
                     if (creation.tryPlacement(target)) {
                         currentBoatButton.setDisable(true);
@@ -115,8 +115,8 @@ public class GameController implements Initializable {
 
     @FXML
     protected void toggleOrientation() {
-        rules.isHorizontal = !rules.isHorizontal;
-        if (rules.isHorizontal) {
+        isHorizontal = !isHorizontal;
+        if (isHorizontal) {
             orientationButton.setText("Orientation: Horizontale");
             return;
         }
@@ -125,7 +125,7 @@ public class GameController implements Initializable {
 
     @FXML
     public void resetGame() {
-        for (Case[] row : rules.cases) {
+        for (Case[] row : cases) {
             for (Case c : row) {
                 c.setOccupiedBy(null);
             }
@@ -156,10 +156,13 @@ public class GameController implements Initializable {
         CUIRASSE.setManaged(false);
         PORTE_AVION.setVisible(false);
         PORTE_AVION.setManaged(false);
+        resetButton.setVisible(false);
+        resetButton.setManaged(false);
         selectedBoatLabel.setVisible(false);
         selectedBoatLabel.setManaged(false);
         orientationButton.setVisible(false);
         orientationButton.setManaged(false);
+
         opponentGrid.setVisible(true);
         opponentGrid.setManaged(true);
         opponentGridTitle.setVisible(true);

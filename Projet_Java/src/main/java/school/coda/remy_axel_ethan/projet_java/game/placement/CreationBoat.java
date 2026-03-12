@@ -14,12 +14,14 @@ import static school.coda.remy_axel_ethan.projet_java.tools.Grille.CASE_Y_POSITI
 public class CreationBoat {
 
     private final Boat selectedBoat;
-    private final BoardRules rules;
+    private final Case[][] cases;
+    private final boolean isHorizontal;
     private final GridPane grid;
 
-    public CreationBoat(Boat selectedBoat, BoardRules rules, GridPane grid) {
+    public CreationBoat(Boat selectedBoat, boolean isHorizontal, Case[][] cases, GridPane grid) {
         this.selectedBoat = selectedBoat;
-        this.rules = rules;
+        this.isHorizontal = isHorizontal;
+        this.cases = cases;
         this.grid = grid;
     }
 
@@ -28,11 +30,11 @@ public class CreationBoat {
         int y = target.getPos()[1];
         int size = selectedBoat.getSize();
 
-        if (!rules.isInGrid(x, y, size)) {
+        if (!BoardRules.isInGrid(x, y, size, isHorizontal)) {
             IO.println("Le bateau sort de la grille !");
             return false;
         }
-        if (!rules.isCasesFree(x, y, size)) {
+        if (!BoardRules.isCasesFree(x, y, size, isHorizontal, cases)) {
             return false;
         }
 
@@ -43,10 +45,10 @@ public class CreationBoat {
 
     private void applyPlacement(int x, int y, int size) {
         for (int i = 0; i < size; i++) {
-            int placeX = rules.isHorizontal ? x + i : x;
-            int placeY = rules.isHorizontal ? y : y + i;
+            int placeX = isHorizontal ? x + i : x;
+            int placeY = isHorizontal ? y : y + i;
 
-            placeBoat(rules.cases[placeX][placeY]);
+            placeBoat(cases[placeX][placeY]);
         }
     }
 

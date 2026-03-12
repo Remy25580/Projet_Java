@@ -4,17 +4,19 @@ import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import static school.coda.remy_axel_ethan.projet_java.tools.Grille.GRID_SIZE;
 
 public class BoardRules {
-    public boolean isHorizontal = true;
-    public Case[][] cases;
+    private BoardRules() {
+        /* This utility class should not be instantiated */
+    }
 
-    public boolean isInGrid(int x, int y, int size) {
+
+    public static boolean isInGrid(int x, int y, int size, boolean isHorizontal) {
         if (isHorizontal) {
             return (x + size) <= GRID_SIZE;
         }
         return (y + size) <= GRID_SIZE;
     }
 
-    public boolean isCasesFree(int x, int y, int size) {
+    public static  boolean isCasesFree(int x, int y, int size, boolean isHorizontal, Case[][] cases) {
         for (int i = 0; i < size; i++) {
             int checkX = isHorizontal ? x + i : x;
             int checkY = isHorizontal ? y : y + i;
@@ -28,7 +30,7 @@ public class BoardRules {
         return true;
     }
 
-    public boolean isntCaseValide(Case target) {
+    public static boolean isntCaseValide(Case target) {
         if (target.getOccupiedBy() != null) {
             IO.println("Au moins l'une des cases est déjà occupée !");
             return true;
