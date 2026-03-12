@@ -87,6 +87,31 @@ public class GameController implements Initializable {
 
     }
 
+    @FXML
+    public void resetGame() {
+        for (Case[] aCase : cases) {
+            for (Case currentCase : aCase) {
+                currentCase.setOccupiedBy(null);
+
+                Button btn = getButtonFromACase(currentCase);
+                if (btn != null) {
+                    btn.setStyle("-fx-background-color: blue;" +
+                            "-fx-border-color: black;" +
+                            "-fx-border-radius: 0;");
+                }
+            }
+        }
+
+        Button[] boatButtons = {PATROUILLEUR, SOUS_MARIN, DESTROYER, CUIRASSE, PORTE_AVION};
+        for (Button b : boatButtons) {
+            if (b != null) b.setDisable(false);
+        }
+
+        this.nbBoatPlaced = 0;
+        this.selectedBoat = null;
+        this.currentBoatButton = null;
+    }
+
     private boolean isInGrid(int x, int y, int size) {
         if (isHorizontal) {
             return (x + size) <= GRID_SIZE;
@@ -196,4 +221,5 @@ public class GameController implements Initializable {
         nbBoatLabel.setManaged(false);
 
     }
+
 }
