@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import school.coda.remy_axel_ethan.projet_java.game.placement.BoatPlacement;
+import school.coda.remy_axel_ethan.projet_java.game.InitGame;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ public class BaseController {
                 .getScene()
                 .getWindow();
 
-        BoatPlacement placement = new BoatPlacement();
+        InitGame placement = new InitGame();
         placement.initPlacement(stage);
     }
 }

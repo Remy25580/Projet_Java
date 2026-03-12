@@ -194,11 +194,6 @@ public class GameController implements Initializable {
         orientationButton.setManaged(false);
         nbBoatLabel.setVisible(false);
         nbBoatLabel.setManaged(false);
-        opponentGridTitle.setVisible(true);
-        opponentGridTitle.setManaged(true);
-        yourGridTitle.setVisible(true);
-        yourGridTitle.setManaged(true);
-        opponentGrid.setVisible(true);
-        opponentGrid.setManaged(true);
+
     }
 }

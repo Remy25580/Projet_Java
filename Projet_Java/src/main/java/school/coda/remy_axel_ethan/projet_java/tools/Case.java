@@ -5,20 +5,20 @@ import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 public class Case {
     private Boat occupiedBy;
     private boolean touched;
-    private final int xPos;
-    private final int yPos;
+    private final int x;
+    private final int y;
 
     public Case(int x, int y){
         this.occupiedBy = null;
         this.touched = false;
-        this.xPos = x;
-        this.yPos = y;
+        this.x = x;
+        this.y = y;
     }
 
     public Boat getOccupiedBy(){return this.occupiedBy;}
     public boolean getTouched(){return this.touched;}
     public int[] getPos(){
-        return new int[]{this.xPos, this.yPos};
+        return new int[]{this.x, this.y};
     }
 
     public void setOccupiedBy(Boat boat){this.occupiedBy = boat;}
