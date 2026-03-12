@@ -29,8 +29,6 @@ public class GameController implements Initializable {
     @FXML
     private Button gameStartButton;
     @FXML
-    private Button currentBoatButton;
-    @FXML
     private GridPane opponentGrid;
     @FXML
     private Label opponentGridTitle;
@@ -41,6 +39,8 @@ public class GameController implements Initializable {
 
     BoardRules rules = new BoardRules();
     private Boat selectedBoat = null;
+    private Button currentBoatButton;
+
     private int nbBoatPlaced = 0;
 
     @Override
@@ -62,7 +62,6 @@ public class GameController implements Initializable {
                         selectedBoat = null;
                         currentBoatButton = null;
 
-                        // On vérifie si les 5 bateaux sont placés
                         if(nbBoatPlaced == 5) {
                             gameStartButton.setDisable(false);
                         }
