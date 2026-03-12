@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import school.coda.remy_axel_ethan.projet_java.placement.BoatPlacement;
+import school.coda.remy_axel_ethan.projet_java.game.placement.BoatPlacement;
 
 import java.io.IOException;
 

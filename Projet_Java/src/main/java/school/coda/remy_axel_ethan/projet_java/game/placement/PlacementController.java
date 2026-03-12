@@ -1,4 +1,4 @@
-package school.coda.remy_axel_ethan.projet_java.placement;
+package school.coda.remy_axel_ethan.projet_java.game.placement;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
