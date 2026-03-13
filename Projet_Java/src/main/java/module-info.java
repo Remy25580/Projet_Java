@@ -1,6 +1,7 @@
 module school.coda.remy_axel.projet_java {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
 
 
     opens school.coda.remy_axel_ethan.projet_java to javafx.fxml;

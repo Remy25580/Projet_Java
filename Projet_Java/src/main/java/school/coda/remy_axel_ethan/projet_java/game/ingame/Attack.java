@@ -3,6 +3,7 @@ package school.coda.remy_axel_ethan.projet_java.game.ingame;
 import javafx.scene.layout.GridPane;
 import school.coda.remy_axel_ethan.projet_java.game.GameController;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
+import school.coda.remy_axel_ethan.projet_java.tools.SoundManager;
 
 public class Attack {
 
@@ -33,13 +34,24 @@ public class Attack {
 
     private void isOccupied(Case target, GridPane targetGrid) {
         if(target.getOccupiedBy() != null) {
+            SoundManager.playExplosion();
             isSank = target.getOccupiedBy().receiveDamage();
-            if(isSank){controller.updateNumberOfBoats(target.getOwner());}
+
+            if(isSank) {
+                controller.updateNumberOfBoats(target.getOwner());
+                if ("IA".equalsIgnoreCase(target.getOwner())) {
+                    SoundManager.playSunkPlayer();
+                } else {
+                    SoundManager.playSunkIA();
+                }
+            }
+
             controller.resultShoot(target.getOccupiedBy().getType() + " touché !", isSank);
             controller.updateColorCase(true, target, targetGrid);
             return;
         }
         controller.resultShoot("Aucune cible touchée . . .", false);
+        SoundManager.playFail();
         controller.updateColorCase(false, target, targetGrid);
     }
 
