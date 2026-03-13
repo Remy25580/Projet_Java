@@ -12,21 +12,19 @@ import school.coda.remy_axel_ethan.projet_java.tools.Grille;
 
 public class AiGrid extends Grille {
     private Case[][] aiCases;
-    private Case[][] playerCases;
-    private final GridPane aiGrid;
+    private final Case[][] playerCases;
+    private final GridPane gridAi;
     private final GridPane grid;
     private final Attack attack;
-    private AiAttack aiAttack;
-    private GameController controller;
-    boolean attackSuccessed;
-    private AiPlacement placement;
+    private final GameController controller;
+    boolean attackSuccess;
     private boolean isItYourTurn;
 
     PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
 
-    public AiGrid(GridPane aiGrid,GridPane grid ,GameController controller, Case[][] playerCases){
-        this.aiGrid = aiGrid;
+    public AiGrid(GridPane gridAi, GridPane grid , GameController controller, Case[][] playerCases){
+        this.gridAi = gridAi;
         this.grid = grid;
         this.controller = controller;
         attack = new Attack(controller);
@@ -35,19 +33,21 @@ public class AiGrid extends Grille {
     }
 
     public Case[][] createAiGrid(){
-        aiCases = createGrid(aiGrid, "AI");
-        aiAttack = new AiAttack(controller, playerCases);
-        placement = new AiPlacement(aiCases);
+        AiAttack attackAi;
+        aiCases = createGrid(gridAi, "AI");
+        attackAi = new AiAttack(controller, playerCases);
+        AiPlacement placement = new AiPlacement(aiCases);
         placement.placeAllBoats();
-        for (Node child : aiGrid.getChildren()){
+        for (Node child : gridAi.getChildren()){
             Button btn = (Button) child;
             btn.setOnMouseClicked(_ -> {
-                if (isItYourTurn) {attackSuccessed = shootOnAi(btn, aiGrid);}
+                if (isItYourTurn) {
+                    attackSuccess = shootOnAi(btn, gridAi);}
 
-                if (attackSuccessed) {
+                if (attackSuccess) {
                     isItYourTurn = false;
                     pause.setOnFinished(_ -> {
-                        aiAttack.aiTurn(grid);
+                        attackAi.aiTurn(grid);
                         isItYourTurn = true;
                     });
                     pause.play();
