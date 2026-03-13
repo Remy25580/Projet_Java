@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import school.coda.remy_axel_ethan.projet_java.base.GameBase;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
+import school.coda.remy_axel_ethan.projet_java.events.Achievements;
 import school.coda.remy_axel_ethan.projet_java.events.DataBase;
 import school.coda.remy_axel_ethan.projet_java.game.ingame.AiGrid;
 import school.coda.remy_axel_ethan.projet_java.game.placement.PlayerPlacement;
@@ -55,6 +56,7 @@ public class GameController implements Initializable {
     private Button restart;
 
     private final DataBase db = new DataBase();
+    private final Achievements achievements = new Achievements();
 
 
     private Case[][] cases;
@@ -255,6 +257,7 @@ public class GameController implements Initializable {
             SoundManager.playVictory();
             endMessage.setText("Vous avez gagné, bravo!");
             db.putAResult("player", nbPlayerShots, nbIaShots);
+            achievements.achievements(nbPlayerShots);
             stopGame();
         } else if (yourBoats == 0) {
             endMessage.setText("Vous avez échoué . . .");
