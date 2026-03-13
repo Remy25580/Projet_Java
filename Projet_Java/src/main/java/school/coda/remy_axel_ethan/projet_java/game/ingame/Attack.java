@@ -19,6 +19,7 @@ public class Attack {
         isOccupied(target);
         target.getOccupiedBy().receiveDamage();
     }
+
     private boolean isCaseValide(Case target) {
         if (target.getTouched()) {
             controller.resultShoot("Cette case a déjà été touchée !!");
