@@ -59,7 +59,7 @@ public class GameController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cases = createGrid(grid, "player");
         playerPlacement = new PlayerPlacement(cases);
-        aiGrid = new AiGrid(opponentGrid, grid,this);
+        aiGrid = new AiGrid(opponentGrid, grid,this, cases);
 
         for (Node child : grid.getChildren()) {
             Button button = (Button) child;
