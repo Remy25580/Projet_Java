@@ -16,6 +16,7 @@ import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
 import school.coda.remy_axel_ethan.projet_java.game.ingame.AiGrid;
 import school.coda.remy_axel_ethan.projet_java.game.placement.PlayerPlacement;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
+import school.coda.remy_axel_ethan.projet_java.tools.SoundManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -233,6 +234,7 @@ public class GameController implements Initializable {
 
     private void win(){
         if(aiBoats == 0){
+            SoundManager.playVictory();
             endMessage.setText("Vous avez gagné, bravo!");
             stopGame();
         } else if (yourBoats == 0) {
