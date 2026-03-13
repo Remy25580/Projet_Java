@@ -3,24 +3,26 @@ package school.coda.remy_axel_ethan.projet_java.game.ingame;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import school.coda.remy_axel_ethan.projet_java.game.GameController;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import school.coda.remy_axel_ethan.projet_java.tools.Grille;
+import school.coda.remy_axel_ethan.projet_java.game.ingame.Attack;
 
 public class AiGrid extends Grille {
     private Case[][] aiCases;
     private GridPane aiGrid;
     private final Attack attack;
 
-    public AiGrid(GridPane aiGrid, Attack attack){
+    public AiGrid(GridPane aiGrid, GameController controller){
         this.aiGrid = aiGrid;
-        this.attack = attack;
+        attack = new Attack(controller);
     }
 
     public void createAiGrid(){
         aiCases = createGrid(aiGrid);
         for (Node child : aiGrid.getChildren()){
             Button btn = (Button) child;
-            btn.setOnMouseClicked(_ -> {});
+            btn.setOnMouseClicked(_ -> shootOnAi(btn));
         }
     }
 
