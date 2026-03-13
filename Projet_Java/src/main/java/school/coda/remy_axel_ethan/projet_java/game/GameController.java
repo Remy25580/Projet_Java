@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
-import school.coda.remy_axel_ethan.projet_java.game.placement.CreationBoat;
+import school.coda.remy_axel_ethan.projet_java.game.placement.PlayerPlacement;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import java.net.URL;
 import java.util.List;
@@ -45,7 +45,7 @@ public class GameController implements Initializable {
     private Case[][] cases;
     private boolean isHorizontal = true;
 
-    CreationBoat creation;
+    private PlayerPlacement playerPlacement;
     private Boat selectedBoat = null;
     private Button currentBoatButton;
     private int nbBoatPlaced = 0;
@@ -55,6 +55,7 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cases = createGrid(grid);
+        playerPlacement = new PlayerPlacement(cases);
 
         for (Node child : grid.getChildren()) {
             Button button = (Button) child;
@@ -68,9 +69,9 @@ public class GameController implements Initializable {
         int y = (int) targetButton.getProperties().get(CASE_Y_POSITION);
         Case target = cases[x][y];
 
-        creation = new CreationBoat(selectedBoat, isHorizontal, cases);
+        boolean isPlaced = playerPlacement.attemptPlacement(selectedBoat, isHorizontal, target);
 
-        if (creation.tryPlacement(target)) {
+        if (isPlaced) {
             refreshGridUI();
             updateUiAfterPlacement();
         }
