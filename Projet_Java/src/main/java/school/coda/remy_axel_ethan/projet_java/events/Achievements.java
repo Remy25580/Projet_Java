@@ -1,14 +1,10 @@
 package school.coda.remy_axel_ethan.projet_java.events;
 
-import school.coda.remy_axel_ethan.projet_java.game.GameController;
-
 public class Achievements {
     DataBase db;
-    GameController controller;
 
     public Achievements(){
         this.db = new DataBase();
-        this.controller = new GameController();
     }
 
     public String numberOfGames(){
@@ -39,14 +35,16 @@ public class Achievements {
         return null;
     }
 
-    public void achievements(int shots){
+    public String achievements(int shots){
         String thirtySixShots = thirtySixShots(shots);
-        if(thirtySixShots != null){controller.showAchievement(thirtySixShots);}
+        if(thirtySixShots != null){return thirtySixShots;}
 
         String victoriesAchievement = numberOfVictories();
-        if(victoriesAchievement != null){controller.showAchievement(victoriesAchievement);}
+        if(victoriesAchievement != null){return victoriesAchievement;}
 
         String gamesAchievement = numberOfGames();
-        if(gamesAchievement != null){controller.showAchievement(gamesAchievement);}
+        if(gamesAchievement != null){return gamesAchievement;}
+
+        return null;
     }
 }

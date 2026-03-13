@@ -257,7 +257,7 @@ public class GameController implements Initializable {
             SoundManager.playVictory();
             endMessage.setText("Vous avez gagné, bravo!");
             db.putAResult("player", nbPlayerShots, nbIaShots);
-            achievements.achievements(nbPlayerShots);
+            showAchievement(achievements.achievements(nbPlayerShots));
             stopGame();
         } else if (yourBoats == 0) {
             endMessage.setText("Vous avez échoué . . .");
