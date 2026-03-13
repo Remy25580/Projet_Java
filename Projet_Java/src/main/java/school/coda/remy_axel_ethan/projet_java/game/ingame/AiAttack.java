@@ -12,7 +12,7 @@ public class AiAttack extends Attack{
     private final Random rand = new Random();
     private final Case[][] cases;
 
-    private AiAttack(GameController controller, Case[][] cases) {
+    AiAttack(GameController controller, Case[][] cases) {
         super(controller);
         this.cases = cases;
     }

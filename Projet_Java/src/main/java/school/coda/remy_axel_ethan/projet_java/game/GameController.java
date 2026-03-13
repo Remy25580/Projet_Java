@@ -14,7 +14,7 @@ import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
 import school.coda.remy_axel_ethan.projet_java.game.placement.CreationBoat;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import school.coda.remy_axel_ethan.projet_java.game.ingame.AiGrid;
-import school.coda.remy_axel_ethan.projet_java.game.ingame.Attack;
+import school.coda.remy_axel_ethan.projet_java.game.placement.AiPlacement;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -51,13 +51,15 @@ public class GameController implements Initializable {
     private Boat selectedBoat = null;
     private Button currentBoatButton;
     private int nbBoatPlaced = 0;
-    private final AiGrid aiGrid = new AiGrid(opponentGrid, this);
+    private AiGrid aiGrid;
+    private Case[][] aiCases;
 
     PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cases = createGrid(grid);
+        aiGrid = new AiGrid(opponentGrid, this);
 
         for (Node child : grid.getChildren()) {
             Button button = (Button) child;
@@ -183,6 +185,7 @@ public class GameController implements Initializable {
     private void initGamePlay() {
         hidePlacementUI();
         showInGameUI();
+        aiCases = aiGrid.createAiGrid();
 
     }
 

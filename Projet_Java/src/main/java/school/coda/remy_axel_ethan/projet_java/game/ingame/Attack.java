@@ -11,13 +11,13 @@ public class Attack {
         this.controller = controller;
     }
 
-    public void shoot(Case target) {
+    public boolean shoot(Case target) {
         if (!isCaseValide(target)) {
-            return;
+            return false;
         }
         target.changeTouched();
         isOccupied(target);
-        target.getOccupiedBy().receiveDamage();
+        return true;
     }
 
     private boolean isCaseValide(Case target) {
@@ -32,6 +32,7 @@ public class Attack {
         if(target.getOccupiedBy() != null) {
             controller.resultShoot(target.getOccupiedBy().getType() + " touché !");
             controller.updateColorCase(true, target);
+            target.getOccupiedBy().receiveDamage();
             return;
         }
         controller.resultShoot("Aucune cible touchée . . .");

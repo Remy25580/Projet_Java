@@ -11,7 +11,6 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <Label fx:id="nbBoatLabel" text="Bateaux restants : 5"/>
     <Label fx:id="selectedBoatLabel" text="Bateau sélectionné : aucun"/>
 
     <HBox spacing="30.0" alignment="CENTER">
