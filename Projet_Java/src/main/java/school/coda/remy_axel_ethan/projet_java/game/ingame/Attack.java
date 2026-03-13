@@ -17,6 +17,7 @@ public class Attack {
         }
         target.changeTouched();
         isOccupied(target);
+        target.getOccupiedBy().receiveDamage();
     }
     private boolean isCaseValide(Case target) {
         if (target.getTouched()) {
