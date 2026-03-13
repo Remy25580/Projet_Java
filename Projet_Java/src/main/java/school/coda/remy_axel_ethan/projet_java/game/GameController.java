@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -13,6 +14,7 @@ import javafx.util.Duration;
 import school.coda.remy_axel_ethan.projet_java.base.GameBase;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
+import school.coda.remy_axel_ethan.projet_java.events.DataBase;
 import school.coda.remy_axel_ethan.projet_java.game.ingame.AiGrid;
 import school.coda.remy_axel_ethan.projet_java.game.placement.PlayerPlacement;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
@@ -52,6 +54,8 @@ public class GameController implements Initializable {
     @FXML
     private Button restart;
 
+    private final DataBase db = new DataBase();
+
 
     private Case[][] cases;
     private boolean isHorizontal = true;
@@ -65,6 +69,9 @@ public class GameController implements Initializable {
 
     private int yourBoats = 5;
     private int aiBoats = 5;
+
+    private int nbPlayerShots = 0;
+    private int nbIaShots = 0;
 
     PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
@@ -124,6 +131,9 @@ public class GameController implements Initializable {
         pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
         pause.play();
     }
+
+    public void addPlayerShot(){nbPlayerShots++;}
+    public void addIaShots(){nbIaShots++;}
 
     public Button getButtonFromACase(Case target, GridPane targetGrid) {
         int xTarget = target.getPos()[0];
@@ -223,6 +233,14 @@ public class GameController implements Initializable {
         }
     }
 
+    public void showAchievement(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Récompense Spéciale");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
     public void updateNumberOfBoats(String owner){
         if(Objects.equals(owner, "player")){
             yourBoats--;
@@ -236,9 +254,11 @@ public class GameController implements Initializable {
         if(aiBoats == 0){
             SoundManager.playVictory();
             endMessage.setText("Vous avez gagné, bravo!");
+            db.putAResult("player", nbPlayerShots, nbIaShots);
             stopGame();
         } else if (yourBoats == 0) {
             endMessage.setText("Vous avez échoué . . .");
+            db.putAResult("IA", nbPlayerShots, nbIaShots);
             stopGame();
         }
 

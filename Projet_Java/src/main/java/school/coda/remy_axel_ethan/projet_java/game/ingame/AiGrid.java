@@ -42,12 +42,16 @@ public class AiGrid extends Grille {
         for (Node child : aiGrid.getChildren()){
             Button btn = (Button) child;
             btn.setOnMouseClicked(_ -> {
-                if (isItYourTurn) {attackSuccessed = shootOnAi(btn, aiGrid);}
+                if (isItYourTurn) {
+                    attackSuccessed = shootOnAi(btn, aiGrid);
+                    controller.addPlayerShot();
+                }
 
                 if (attackSuccessed) {
                     isItYourTurn = false;
                     pause.setOnFinished(_ -> {
                         aiAttack.aiTurn(grid);
+                        controller.addIaShots();
                         isItYourTurn = true;
                     });
                     pause.play();
