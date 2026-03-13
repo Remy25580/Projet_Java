@@ -16,10 +16,8 @@ public class AiGrid extends Grille {
     private final GridPane gridAi;
     private final GridPane grid;
     private final Attack attack;
-    private AiAttack attackAi;
     private final GameController controller;
     boolean attackSuccess;
-    private AiPlacement placement;
     private boolean isItYourTurn;
 
     PauseTransition pause = new PauseTransition(Duration.seconds(1));
@@ -35,9 +33,11 @@ public class AiGrid extends Grille {
     }
 
     public Case[][] createAiGrid(){
+
+        AiAttack attackAi;
         aiCases = createGrid(gridAi, "AI");
         attackAi = new AiAttack(controller, playerCases);
-        placement = new AiPlacement(aiCases);
+        AiPlacement placement = new AiPlacement(aiCases);
         placement.placeAllBoats();
         for (Node child : gridAi.getChildren()){
             Button btn = (Button) child;
@@ -46,6 +46,7 @@ public class AiGrid extends Grille {
                     attackSuccess = shootOnAi(btn, gridAi);
                     controller.addPlayerShot();
                 }
+
 
                 if (attackSuccess) {
                     isItYourTurn = false;
