@@ -53,7 +53,7 @@ public class GameController implements Initializable {
     private AiGrid aiGrid;
     private Case[][] aiCases;
 
-    PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+    PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,7 +63,7 @@ public class GameController implements Initializable {
 
         for (Node child : grid.getChildren()) {
             Button button = (Button) child;
-            button.setOnMouseClicked(e -> handleGridClick(button));
+            button.setOnMouseClicked(_ -> handleGridClick(button));
         }
     }
     private void handleGridClick(Button targetButton) {
@@ -129,7 +129,7 @@ public class GameController implements Initializable {
 
     public void updateColorCase(boolean touchedBoat, Case target, GridPane targetGrid){
         if(touchedBoat){
-            getButtonFromACase(target, targetGrid).setStyle("-fx-background-color: red;" +
+            getButtonFromACase(target, targetGrid).setStyle("-fx-background-color: purple;" +
                     "-fx-border-color: black;" +
                     "-fx-border-radius: 0;");
             return;
