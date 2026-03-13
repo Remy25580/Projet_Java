@@ -16,6 +16,7 @@ import school.coda.remy_axel_ethan.projet_java.game.placement.PlayerPlacement;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static school.coda.remy_axel_ethan.projet_java.tools.Grille.*;
@@ -41,6 +42,8 @@ public class GameController implements Initializable {
     private Label caseTouchedErrorMessage;
     @FXML
     protected Button resetButton;
+    @FXML
+    protected Label boatSankAnnoncement;
 
 
     private Case[][] cases;
@@ -52,6 +55,9 @@ public class GameController implements Initializable {
     private int nbBoatPlaced = 0;
     private AiGrid aiGrid;
     private Case[][] aiCases;
+
+    private int yourBoats = 5;
+    private int aiBoats = 5;
 
     PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
@@ -105,7 +111,8 @@ public class GameController implements Initializable {
         }
     }
 
-    public void resultShoot(String message) {
+    public void resultShoot(String message, boolean isSank) {
+        if(isSank){message = message + " Coulé !!";}
         caseTouchedErrorMessage.setText(message);
         pause.setOnFinished(_ -> caseTouchedErrorMessage.setText(""));
         pause.play();
@@ -206,6 +213,23 @@ public class GameController implements Initializable {
         for (Node node : nodesToShow) {
             node.setVisible(true);
             node.setManaged(true);
+        }
+    }
+
+    public void updateNumberOfBoats(String owner){
+        if(Objects.equals(owner, "player")){
+            yourBoats--;
+            win();
+        }
+        aiBoats--;
+        win();
+    }
+
+    private void win(){
+        if(aiBoats == 0){
+            IO.println("Vous avez gagné");
+        } else if (yourBoats == 0) {
+            IO.println("Vous avez perdu");
         }
     }
 }

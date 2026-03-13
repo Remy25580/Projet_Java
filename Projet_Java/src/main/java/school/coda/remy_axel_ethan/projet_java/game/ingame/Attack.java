@@ -7,6 +7,7 @@ import school.coda.remy_axel_ethan.projet_java.tools.Case;
 public class Attack {
 
     private final GameController controller;
+    private boolean isSank;
 
     public Attack(GameController controller) {
         this.controller = controller;
@@ -24,7 +25,7 @@ public class Attack {
 
     private boolean isCaseValide(Case target) {
         if (target.getTouched()) {
-            controller.resultShoot("Cette case a déjà été touchée !!");
+            controller.resultShoot("Cette case a déjà été touchée !!", false);
             return false;
         }
         return true;
@@ -32,12 +33,14 @@ public class Attack {
 
     private void isOccupied(Case target, GridPane targetGrid) {
         if(target.getOccupiedBy() != null) {
-            controller.resultShoot(target.getOccupiedBy().getType() + " touché !");
+            isSank = target.getOccupiedBy().receiveDamage();
+            if(isSank){controller.updateNumberOfBoats(target.getOwner());}
+            controller.resultShoot(target.getOccupiedBy().getType() + " touché !", isSank);
             controller.updateColorCase(true, target, targetGrid);
-            target.getOccupiedBy().receiveDamage();
             return;
         }
-        controller.resultShoot("Aucune cible touchée . . .");
+        controller.resultShoot("Aucune cible touchée . . .", false);
         controller.updateColorCase(false, target, targetGrid);
     }
+
 }
