@@ -8,12 +8,16 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import school.coda.remy_axel_ethan.projet_java.base.GameBase;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
 import school.coda.remy_axel_ethan.projet_java.game.ingame.AiGrid;
 import school.coda.remy_axel_ethan.projet_java.game.placement.PlayerPlacement;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
@@ -43,7 +47,9 @@ public class GameController implements Initializable {
     @FXML
     protected Button resetButton;
     @FXML
-    protected Label boatSankAnnoncement;
+    private Label endMessage;
+    @FXML
+    private Button restart;
 
 
     private Case[][] cases;
@@ -227,9 +233,34 @@ public class GameController implements Initializable {
 
     private void win(){
         if(aiBoats == 0){
-            IO.println("Vous avez gagné");
+            endMessage.setText("Vous avez gagné, bravo!");
+            stopGame();
         } else if (yourBoats == 0) {
-            IO.println("Vous avez perdu");
+            endMessage.setText("Vous avez échoué . . .");
+            stopGame();
         }
+
+    }
+
+    private void stopGame(){
+        List<Node> nodesToHide = List.of(grid, opponentGrid, opponentGridTitle, yourGridTitle);
+        for (Node node : nodesToHide) {
+            node.setVisible(false);
+            node.setManaged(false);
+        }
+        restart.setVisible(true);
+        restart.setManaged(true);
+        endMessage.setVisible(true);
+        endMessage.setManaged(true);
+    }
+
+    @FXML
+    private void restart(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource())
+                .getScene()
+                .getWindow();
+
+        GameBase game = new GameBase();
+        game.start(stage);
     }
 }

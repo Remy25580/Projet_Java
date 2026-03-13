@@ -40,5 +40,7 @@
         <Button fx:id="gameStartButton" text="Commencer à jouer!" disable="true" onAction="#initGamePlay"/>
     </VBox>
     <Label fx:id="caseTouchedErrorMessage"/>
-    <Label fx:id="boatSankAnnoncement"/>
+
+    <Label fx:id="endMessage" visible="false" managed="false"/>
+    <Button fx:id="restart" text="Recommencer" visible="false" managed="false" onAction="#restart"/>
 </VBox>
