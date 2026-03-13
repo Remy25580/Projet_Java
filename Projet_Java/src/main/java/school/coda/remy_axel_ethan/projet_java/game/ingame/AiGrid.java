@@ -6,7 +6,6 @@ import javafx.scene.layout.GridPane;
 import school.coda.remy_axel_ethan.projet_java.game.GameController;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import school.coda.remy_axel_ethan.projet_java.tools.Grille;
-import school.coda.remy_axel_ethan.projet_java.game.ingame.Attack;
 
 public class AiGrid extends Grille {
     private Case[][] aiCases;
