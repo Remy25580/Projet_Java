@@ -1,15 +1,9 @@
 package school.coda.remy_axel_ethan.projet_java.game.placement;
 
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 
 import java.util.Arrays;
-
-import static school.coda.remy_axel_ethan.projet_java.tools.Grille.CASE_X_POSITION;
-import static school.coda.remy_axel_ethan.projet_java.tools.Grille.CASE_Y_POSITION;
 
 public class CreationBoat {
 
