@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import school.coda.remy_axel_ethan.projet_java.boat.Boat;
 import school.coda.remy_axel_ethan.projet_java.boat.BoatType;
+import school.coda.remy_axel_ethan.projet_java.game.ingame.AiGrid;
 import school.coda.remy_axel_ethan.projet_java.game.placement.PlayerPlacement;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import java.net.URL;
@@ -49,13 +50,16 @@ public class GameController implements Initializable {
     private Boat selectedBoat = null;
     private Button currentBoatButton;
     private int nbBoatPlaced = 0;
+    private AiGrid aiGrid;
+    private Case[][] aiCases;
 
     PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cases = createGrid(grid);
+        cases = createGrid(grid, "player");
         playerPlacement = new PlayerPlacement(cases);
+        aiGrid = new AiGrid(opponentGrid, grid,this);
 
         for (Node child : grid.getChildren()) {
             Button button = (Button) child;
@@ -107,11 +111,11 @@ public class GameController implements Initializable {
         pause.play();
     }
 
-    public Button getButtonFromACase(Case target) {
+    public Button getButtonFromACase(Case target, GridPane targetGrid) {
         int xTarget = target.getPos()[0];
         int yTarget = target.getPos()[1];
 
-        for (Node node : grid.getChildren()) {
+        for (Node node : targetGrid.getChildren()) {
             Button button = (Button) node;
             int xButton = (int) button.getProperties().get(CASE_X_POSITION);
             int yButton = (int) button.getProperties().get(CASE_Y_POSITION);
@@ -123,14 +127,14 @@ public class GameController implements Initializable {
         return null;
     }
 
-    public void updateColorCase(boolean touchedBoat, Case target){
+    public void updateColorCase(boolean touchedBoat, Case target, GridPane targetGrid){
         if(touchedBoat){
-            getButtonFromACase(target).setStyle("-fx-background-color: red;" +
+            getButtonFromACase(target, targetGrid).setStyle("-fx-background-color: red;" +
                     "-fx-border-color: black;" +
                     "-fx-border-radius: 0;");
             return;
         }
-        getButtonFromACase(target).setStyle("-fx-background-color: gray;" +
+        getButtonFromACase(target, targetGrid).setStyle("-fx-background-color: gray;" +
                 "-fx-border-color: black;" +
                 "-fx-border-radius: 0;");
     }
@@ -180,6 +184,7 @@ public class GameController implements Initializable {
     @FXML
     private void initGamePlay() {
         hidePlacementUI();
+        aiCases = aiGrid.createAiGrid();
         showInGameUI();
     }
 
