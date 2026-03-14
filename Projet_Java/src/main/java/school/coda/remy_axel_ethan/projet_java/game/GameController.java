@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -20,6 +21,7 @@ import school.coda.remy_axel_ethan.projet_java.game.ingame.AiGrid;
 import school.coda.remy_axel_ethan.projet_java.game.placement.PlayerPlacement;
 import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import school.coda.remy_axel_ethan.projet_java.tools.SoundManager;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -74,6 +76,9 @@ public class GameController implements Initializable {
 
     private int nbPlayerShots = 0;
     private int nbIaShots = 0;
+
+    private final List<KeyCode> KONAMI_CODE = List.of(KeyCode.UP, KeyCode.UP, KeyCode.DOWN, KeyCode.DOWN, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.B, KeyCode.A);
+    private int konamiIndex = 0;
 
     private final PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
@@ -212,6 +217,7 @@ public class GameController implements Initializable {
         hidePlacementUI();
         aiCases = aiGrid.createAiGrid();
         showInGameUI();
+        setupKonamiCodeListener();
     }
 
     private void hidePlacementUI() {
@@ -233,6 +239,25 @@ public class GameController implements Initializable {
             node.setVisible(true);
             node.setManaged(true);
         }
+    }
+
+    private void setupKonamiCodeListener() {
+        grid.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KONAMI_CODE.get(konamiIndex)) {
+                konamiIndex++;
+
+                if (konamiIndex == KONAMI_CODE.size()) {
+                    SoundManager.playDingDing();
+                    konamiIndex = 0;
+                }
+            } else {
+                if (event.getCode() == KONAMI_CODE.getFirst()) {
+                    konamiIndex = 1;
+                } else {
+                    konamiIndex = 0;
+                }
+            }
+        });
     }
 
     public void showAchievement(String message){

@@ -12,6 +12,7 @@ public class SoundManager {
     private static final AudioClip SHIP_SUNK_PLAYER = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/mimimi-clash-royale.wav");
     private static final AudioClip SHIP_SUNK_IA = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/Explosion.wav");
     private static final AudioClip VICTORY = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/victory.wav");
+    private static final AudioClip DING_DING = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/dingding.wav");
 
     public static void playSunkPlayer() {
         if (SHIP_SUNK_PLAYER != null) SHIP_SUNK_PLAYER.play();
@@ -77,6 +78,13 @@ public class SoundManager {
         if (VICTORY != null) {
             VICTORY.setVolume(10.0);
             VICTORY.play();
+        }
+    }
+
+    public static void playDingDing() {
+        if (DING_DING != null) {
+            DING_DING.setVolume(1.0);
+            DING_DING.play();
         }
     }
 }
