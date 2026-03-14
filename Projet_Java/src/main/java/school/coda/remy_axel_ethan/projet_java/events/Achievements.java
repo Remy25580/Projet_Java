@@ -1,7 +1,7 @@
 package school.coda.remy_axel_ethan.projet_java.events;
 
 public class Achievements {
-    DataBase db;
+    private final DataBase db;
 
     public Achievements(){
         this.db = new DataBase();
@@ -42,9 +42,6 @@ public class Achievements {
         String victoriesAchievement = numberOfVictories();
         if(victoriesAchievement != null){return victoriesAchievement;}
 
-        String gamesAchievement = numberOfGames();
-        if(gamesAchievement != null){return gamesAchievement;}
-
-        return null;
+        return numberOfGames();
     }
 }

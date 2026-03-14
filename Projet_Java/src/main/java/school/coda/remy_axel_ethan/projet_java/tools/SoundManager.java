@@ -21,7 +21,6 @@ public class SoundManager {
         if (SHIP_SUNK_IA != null) SHIP_SUNK_IA.play();
     }
 
-    private static MediaPlayer musicPlayer;
 
     private static AudioClip loadAudioClip(String path) {
         try {
@@ -38,6 +37,7 @@ public class SoundManager {
     }
 
     public static void playBackgroundMusic(String path) {
+        MediaPlayer musicPlayer;
         try {
             URL resource = SoundManager.class.getResource(path);
             if (resource == null) {

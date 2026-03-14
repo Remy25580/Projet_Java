@@ -3,7 +3,7 @@ package school.coda.remy_axel_ethan.projet_java.events;
 import java.sql.*;
 
 public class DataBase {
-    String databaseUrl= "jdbc:sqlite:events.db";
+    private final String databaseUrl= "jdbc:sqlite:events.db";
 
     public void createDb(){
         try (Connection connection = DriverManager.getConnection(databaseUrl)){

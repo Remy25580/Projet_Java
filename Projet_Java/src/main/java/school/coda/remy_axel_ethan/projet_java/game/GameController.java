@@ -75,7 +75,7 @@ public class GameController implements Initializable {
     private int nbPlayerShots = 0;
     private int nbIaShots = 0;
 
-    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+    private final PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

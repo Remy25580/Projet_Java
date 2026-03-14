@@ -20,7 +20,7 @@ public class AiGrid extends Grille {
     boolean attackSuccess;
     private boolean isItYourTurn;
 
-    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+    private final PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
 
     public AiGrid(GridPane gridAi, GridPane grid , GameController controller, Case[][] playerCases){
