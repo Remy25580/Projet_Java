@@ -7,7 +7,7 @@ import java.net.URL;
 
 public class SoundManager {
 
-    private static final AudioClip SHOOT = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/shoot.mp3x");
+    private static final AudioClip SHOOT = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/kaboom.wav");
     private static final AudioClip FAIL = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/the-funny-splash.wav");
     private static final AudioClip SHIP_SUNK_PLAYER = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/mimimi-clash-royale.wav");
     private static final AudioClip SHIP_SUNK_IA = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/Explosion.wav");
@@ -68,7 +68,7 @@ public class SoundManager {
 
     public static void playFail() {
         if (FAIL != null) {
-            FAIL.setVolume(5.0);
+            FAIL.setVolume(1.0);
             FAIL.play();
         }
     }

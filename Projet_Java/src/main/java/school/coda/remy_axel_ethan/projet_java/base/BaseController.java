@@ -1,4 +1,3 @@
-// Fichier : Projet_Java/src/main/java/school/coda/remy_axel_ethan/projet_java/base/BaseController.java
 package school.coda.remy_axel_ethan.projet_java.base;
 
 import javafx.event.ActionEvent;
@@ -18,7 +17,7 @@ public class BaseController {
     private TextField sizeInput;
 
     @FXML
-    protected void onHelloButtonClick(ActionEvent event) throws IOException {
+    protected void launchGame(ActionEvent event) throws IOException {
         if (!updateGridSize()) return;
 
         Stage stage = (Stage) ((Node) event.getSource())

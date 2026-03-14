@@ -8,7 +8,6 @@ import school.coda.remy_axel_ethan.projet_java.tools.SoundManager;
 public class Attack {
 
     private final GameController controller;
-    private boolean isSank;
 
     public Attack(GameController controller) {
         this.controller = controller;
@@ -33,17 +32,19 @@ public class Attack {
     }
 
     private void isOccupied(Case target, GridPane targetGrid) {
+        boolean isSank;
         if(target.getOccupiedBy() != null) {
-            SoundManager.playExplosion();
             isSank = target.getOccupiedBy().receiveDamage();
 
             if(isSank) {
                 controller.updateNumberOfBoats(target.getOwner());
-                if ("IA".equalsIgnoreCase(target.getOwner())) {
+                if ("player".equalsIgnoreCase(target.getOwner())) {
                     SoundManager.playSunkPlayer();
                 } else {
                     SoundManager.playSunkIA();
                 }
+            } else {
+                SoundManager.playExplosion();
             }
 
             controller.resultShoot(target.getOccupiedBy().getType() + " touché !", isSank);
