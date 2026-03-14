@@ -14,6 +14,8 @@
 
     <Label text="Bienvenue dans la bataille javale!"/>
 
+    <Label text="Entrez la taille du tableau (entre 6 et 26) :"/>
+
     <TextField fx:id="sizeInput" promptText="Taille (ex: 10)" maxWidth="100"/>
 
     <Button text="Jouer!" onAction="#onHelloButtonClick"/>

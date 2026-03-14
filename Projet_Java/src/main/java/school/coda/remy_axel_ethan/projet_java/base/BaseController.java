@@ -1,9 +1,11 @@
+// Fichier : Projet_Java/src/main/java/school/coda/remy_axel_ethan/projet_java/base/BaseController.java
 package school.coda.remy_axel_ethan.projet_java.base;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import school.coda.remy_axel_ethan.projet_java.game.InitGame;
 import school.coda.remy_axel_ethan.projet_java.tools.Grille;
@@ -17,7 +19,7 @@ public class BaseController {
 
     @FXML
     protected void onHelloButtonClick(ActionEvent event) throws IOException {
-        updateGridSize();
+        if (!updateGridSize()) return;
 
         Stage stage = (Stage) ((Node) event.getSource())
                 .getScene()
@@ -27,9 +29,36 @@ public class BaseController {
         placement.initPlacement(stage);
     }
 
-    private void updateGridSize() {
-        if (!sizeInput.getText().isEmpty()) {
-            Grille.GRID_SIZE = Integer.parseInt(sizeInput.getText());
+    private boolean updateGridSize() {
+        if (sizeInput.getText().isEmpty()) return true;
+
+        return parseAndValidateSize();
+    }
+
+    private boolean parseAndValidateSize() {
+        try {
+            int size = Integer.parseInt(sizeInput.getText());
+            return applySizeConstraints(size);
+        } catch (NumberFormatException e) {
+            showError("Veuillez entrer un nombre entier valide.");
+            return false;
         }
+    }
+
+    private boolean applySizeConstraints(int size) {
+        if (size > 5 && size <= 26) {
+            Grille.GRID_SIZE = size;
+            return true;
+        }
+        showError("La taille doit être entre 6 et 26 (impossible de mettre 5).");
+        return false;
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur de taille");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
