@@ -273,6 +273,7 @@ public class GameController implements Initializable {
             yourBoats--;
             win();
         }
+        // BUG : aiBoats est toujours décrémenté ici même lorsque c'est l'IA qui touche le joueur
         aiBoats--;
         win();
     }
