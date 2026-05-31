@@ -44,6 +44,7 @@ public class GameController implements Initializable {
     private Label selectedBoatLabel;
     @FXML
     private Button orientationButton;
+    // Attention ce ne sont pas des constantes...
     @FXML
     private Button PATROUILLEUR, SOUS_MARIN, DESTROYER, CUIRASSE, PORTE_AVION;
     @FXML
