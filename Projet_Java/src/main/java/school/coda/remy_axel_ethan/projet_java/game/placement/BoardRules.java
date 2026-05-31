@@ -11,10 +11,11 @@ public class BoardRules {
 
 
     public static boolean isInGrid(int x, int y, int size, boolean isHorizontal) {
-        if (isHorizontal) {
-            return (x + size) <= GRID_SIZE;
-        }
-        return (y + size) <= GRID_SIZE;
+        return isInGrid(size, isHorizontal ? x : y);
+    }
+
+    private static boolean isInGrid(int size, int value) {
+        return (value + size) <= GRID_SIZE;
     }
 
     public static boolean isCasesFree(int x, int y, int size, boolean isHorizontal, Case[][] cases) {
