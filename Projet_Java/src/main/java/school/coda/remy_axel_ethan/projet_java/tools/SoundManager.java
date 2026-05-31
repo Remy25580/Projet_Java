@@ -7,13 +7,13 @@ import javafx.scene.media.MediaPlayer;
 import java.net.URL;
 
 public class SoundManager {
-
-    private static final AudioClip SHOOT = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/kaboom.wav");
-    private static final AudioClip FAIL = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/the-funny-splash.wav");
-    private static final AudioClip SHIP_SUNK_PLAYER = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/mimimi-clash-royale.wav");
-    private static final AudioClip SHIP_SUNK_IA = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/Explosion.wav");
-    private static final AudioClip VICTORY = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/victory.wav");
-    private static final AudioClip DING_DING = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/dingding.wav");
+    private static final String SOUNDS_LOCATION = "/school/coda/remy_axel_ethan/projet_java/sounds/";
+    private static final AudioClip SHOOT = loadAudioClip(SOUNDS_LOCATION + "kaboom.wav");
+    private static final AudioClip FAIL = loadAudioClip(SOUNDS_LOCATION + "the-funny-splash.wav");
+    private static final AudioClip SHIP_SUNK_PLAYER = loadAudioClip(SOUNDS_LOCATION + "mimimi-clash-royale.wav");
+    private static final AudioClip SHIP_SUNK_IA = loadAudioClip(SOUNDS_LOCATION + "Explosion.wav");
+    private static final AudioClip VICTORY = loadAudioClip(SOUNDS_LOCATION + "victory.wav");
+    private static final AudioClip DING_DING = loadAudioClip(SOUNDS_LOCATION + "dingding.wav");
 
     public static void playSunkPlayer() {
         if (SHIP_SUNK_PLAYER != null) SHIP_SUNK_PLAYER.play();
