@@ -24,6 +24,7 @@ public class SoundManager {
     }
 
 
+    // Eviter de faire des return null...
     private static AudioClip loadAudioClip(String path) {
         try {
             URL resource = SoundManager.class.getResource(path);
@@ -38,6 +39,7 @@ public class SoundManager {
         }
     }
 
+    // Code mort
     public static void playBackgroundMusic(String path) {
         MediaPlayer musicPlayer;
         try {
