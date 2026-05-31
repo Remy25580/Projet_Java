@@ -3,11 +3,11 @@ package school.coda.remy_axel_ethan.projet_java.events;
 public class Achievements {
     private final DataBase db;
 
-    public Achievements(){
+    public Achievements() {
         this.db = new DataBase();
     }
 
-    public String numberOfGames(){
+    public String numberOfGames() {
         int nb = db.gamesCounter();
         return switch (nb) {
             case 10 -> "Félicitations! Vous avez joué 10 parties";
@@ -17,7 +17,7 @@ public class Achievements {
         };
     }
 
-    public String numberOfVictories(){
+    public String numberOfVictories() {
         int nb = db.victoriesCounter();
         return switch (nb) {
             case 1 -> "Félicitations! Vous avez gagné votre première partie!";
@@ -30,17 +30,23 @@ public class Achievements {
         };
     }
 
-    public String thirtySixShots(int shots){
-        if(shots <= 36){return "Félicitations! Vous avez gagné en moins de 36 coups!";}
+    public String thirtySixShots(int shots) {
+        if (shots <= 36) {
+            return "Félicitations! Vous avez gagné en moins de 36 coups!";
+        }
         return null;
     }
 
-    public String achievements(int shots){
+    public String achievements(int shots) {
         String thirtySixShots = thirtySixShots(shots);
-        if(thirtySixShots != null){return thirtySixShots;}
+        if (thirtySixShots != null) {
+            return thirtySixShots;
+        }
 
         String victoriesAchievement = numberOfVictories();
-        if(victoriesAchievement != null){return victoriesAchievement;}
+        if (victoriesAchievement != null) {
+            return victoriesAchievement;
+        }
 
         return numberOfGames();
     }

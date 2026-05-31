@@ -3,6 +3,7 @@ package school.coda.remy_axel_ethan.projet_java.tools;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
 import java.net.URL;
 
 public class SoundManager {

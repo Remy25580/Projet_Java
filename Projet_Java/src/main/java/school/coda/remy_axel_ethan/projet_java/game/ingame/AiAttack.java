@@ -8,7 +8,7 @@ import java.util.Random;
 
 import static school.coda.remy_axel_ethan.projet_java.tools.Grille.GRID_SIZE;
 
-public class AiAttack extends Attack{
+public class AiAttack extends Attack {
 
     private final Random rand = new Random();
     private final Case[][] cases;
@@ -24,7 +24,7 @@ public class AiAttack extends Attack{
     }
 
     private Case getRandomTarget() {
-        while(true) {
+        while (true) {
             int xRandom = rand.nextInt(GRID_SIZE);
             int yRandom = rand.nextInt(GRID_SIZE);
             Case target = cases[xRandom][yRandom];

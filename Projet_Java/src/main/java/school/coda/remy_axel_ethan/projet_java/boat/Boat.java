@@ -9,14 +9,20 @@ public class Boat {
         this.type = type;
     }
 
-    public int getSize() { return type.getSize(); }
-    public String getType() { return type.getType(); }
+    public int getSize() {
+        return type.getSize();
+    }
+
+    public String getType() {
+        return type.getType();
+    }
 
 
-    public boolean isSank(){
+    public boolean isSank() {
         return casesTouch >= type.getSize();
     }
-    public boolean receiveDamage(){
+
+    public boolean receiveDamage() {
         casesTouch++;
         return isSank();
     }

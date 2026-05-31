@@ -44,7 +44,7 @@ public class CreationBoat {
         }
     }
 
-    public void placeBoat(Case target){
+    public void placeBoat(Case target) {
         target.setOccupiedBy(selectedBoat);
         IO.println(Arrays.toString(target.getPos()));
     }
