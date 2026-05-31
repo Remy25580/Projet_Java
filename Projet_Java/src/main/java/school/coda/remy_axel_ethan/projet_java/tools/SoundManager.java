@@ -1,8 +1,6 @@
 package school.coda.remy_axel_ethan.projet_java.tools;
 
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import java.net.URL;
 
@@ -36,30 +34,6 @@ public class SoundManager {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    // Code mort
-    public static void playBackgroundMusic(String path) {
-        MediaPlayer musicPlayer;
-        try {
-            URL resource = SoundManager.class.getResource(path);
-            if (resource == null) {
-                System.err.println("ERREUR : Musique introuvable : " + path);
-                return;
-            }
-
-            Media media = new Media(resource.toExternalForm());
-            musicPlayer = new MediaPlayer(media);
-
-            musicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-            musicPlayer.setVolume(0.3);
-            musicPlayer.play();
-
-            System.out.println("SUCCÈS : Musique lancée : " + path);
-        } catch (Exception e) {
-            System.err.println("ERREUR lors de la lecture de la musique.");
-            e.printStackTrace();
         }
     }
 

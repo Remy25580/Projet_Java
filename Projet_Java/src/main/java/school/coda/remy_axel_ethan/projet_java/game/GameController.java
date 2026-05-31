@@ -242,22 +242,22 @@ public class GameController implements Initializable {
     }
 
     private void setupKonamiCodeListener() {
-        grid.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KONAMI_CODE.get(konamiIndex)) {
-                konamiIndex++;
+        grid.getScene().addEventFilter(KeyEvent.KEY_PRESSED, this::onKeyPressed);
+    }
 
-                if (konamiIndex == KONAMI_CODE.size()) {
-                    SoundManager.playDingDing();
-                    konamiIndex = 0;
-                }
-            } else {
-                if (event.getCode() == KONAMI_CODE.getFirst()) {
-                    konamiIndex = 1;
-                } else {
-                    konamiIndex = 0;
-                }
+    private void onKeyPressed(KeyEvent event) {
+        if (event.getCode() == KONAMI_CODE.get(konamiIndex)) {
+            konamiIndex++;
+
+            if (konamiIndex == KONAMI_CODE.size()) {
+                SoundManager.playDingDing();
+                konamiIndex = 0;
             }
-        });
+        } else updateKonamiIndex(event);
+    }
+
+    private void updateKonamiIndex(KeyEvent event) {
+        konamiIndex = (event.getCode() == KONAMI_CODE.getFirst()) ? 1 : 0;
     }
 
     public void showAchievement(String message) {
