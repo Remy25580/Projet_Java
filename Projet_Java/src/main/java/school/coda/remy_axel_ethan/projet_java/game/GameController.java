@@ -65,7 +65,7 @@ public class GameController implements Initializable {
     private PlayerPlacement playerPlacement;
     private Boat selectedBoat = null;
     private Button currentBoatButton;
-    private int nbBoatPlaced = 0;
+    private int nbBoatsPlaced = 0;
     private AiGrid aiGrid;
     private Case[][] aiCases;
     private int yourBoats = 5;
@@ -116,11 +116,11 @@ public class GameController implements Initializable {
     private void updateUiAfterPlacement() {
         currentBoatButton.setDisable(true);
         selectedBoatLabel.setText("Bateau sélectionné : aucun");
-        nbBoatPlaced++;
+        nbBoatsPlaced++;
         selectedBoat = null;
         currentBoatButton = null;
 
-        if (nbBoatPlaced == 5) {
+        if (nbBoatsPlaced == 5) {
             gameStartButton.setDisable(false);
         }
     }
@@ -205,7 +205,7 @@ public class GameController implements Initializable {
 
         List.of(PATROUILLEUR, SOUS_MARIN, DESTROYER, CUIRASSE, PORTE_AVION).forEach(btn -> btn.setDisable(false));
 
-        nbBoatPlaced = 0;
+        nbBoatsPlaced = 0;
         selectedBoat = null;
         currentBoatButton = null;
         selectedBoatLabel.setText("Bateau sélectionné : aucun");
