@@ -1,5 +1,6 @@
 package school.coda.remy_axel_ethan.projet_java.boat;
 
+// Beau travail sur cette enum porteuse de sens métier avec Type / Size
 public enum BoatType {
     PORTE_AVION("porte-avion", 5),
     CUIRASSE("cuirassé", 4),
