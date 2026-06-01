@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-
-
-<?import javafx.scene.control.Button?>
-<VBox spacing="30.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="school.coda.remy_axel_ethan.projet_java.game.GameController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="30.0" prefHeight="400.0" prefWidth="600.0"
+      xmlns="http://javafx.com/javafx/17.0.12" fx:controller="school.coda.remy_axel_ethan.projet_java.game.GameController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
@@ -34,7 +33,7 @@
 
             <Button fx:id="orientationButton" onAction="#toggleOrientation" text="Orientation: Horizontale"/>
 
-            <Button fx:id="resetButton" text="Réinitialiser" onAction="#resetGame" />
+            <Button fx:id="resetButton" text="Réinitialiser" onAction="#resetGame"/>
         </HBox>
 
         <Button fx:id="gameStartButton" text="Commencer à jouer!" disable="true" onAction="#initGamePlay"/>

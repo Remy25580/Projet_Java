@@ -33,10 +33,10 @@ public class Attack {
 
     private void isOccupied(Case target, GridPane targetGrid) {
         boolean isSank;
-        if(target.getOccupiedBy() != null) {
+        if (target.getOccupiedBy() != null) {
             isSank = target.getOccupiedBy().receiveDamage();
 
-            if(isSank) {
+            if (isSank) {
                 controller.updateNumberOfBoats(target.getOwner());
                 if ("player".equalsIgnoreCase(target.getOwner())) {
                     SoundManager.playSunkPlayer();

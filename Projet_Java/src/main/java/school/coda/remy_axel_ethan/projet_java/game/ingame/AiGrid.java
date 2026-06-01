@@ -11,19 +11,18 @@ import school.coda.remy_axel_ethan.projet_java.tools.Case;
 import school.coda.remy_axel_ethan.projet_java.tools.Grille;
 
 public class AiGrid extends Grille {
-    private Case[][] aiCases;
     private final Case[][] playerCases;
     private final GridPane gridAi;
     private final GridPane grid;
     private final Attack attack;
     private final GameController controller;
+    private final PauseTransition pause = new PauseTransition(Duration.seconds(1));
     boolean attackSuccess;
+    private Case[][] aiCases;
     private boolean isItYourTurn;
 
-    private final PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
-
-    public AiGrid(GridPane gridAi, GridPane grid , GameController controller, Case[][] playerCases){
+    public AiGrid(GridPane gridAi, GridPane grid, GameController controller, Case[][] playerCases) {
         this.gridAi = gridAi;
         this.grid = grid;
         this.controller = controller;
@@ -32,14 +31,14 @@ public class AiGrid extends Grille {
         this.isItYourTurn = true;
     }
 
-    public Case[][] createAiGrid(){
+    public Case[][] createAiGrid() {
 
         AiAttack attackAi;
         aiCases = createGrid(gridAi, "AI");
         attackAi = new AiAttack(controller, playerCases);
         AiPlacement placement = new AiPlacement(aiCases);
         placement.placeAllBoats();
-        for (Node child : gridAi.getChildren()){
+        for (Node child : gridAi.getChildren()) {
             Button btn = (Button) child;
             btn.setOnMouseClicked(_ -> {
                 if (isItYourTurn) {
@@ -62,7 +61,7 @@ public class AiGrid extends Grille {
         return aiCases;
     }
 
-    public boolean shootOnAi(Button btn, GridPane targetGrid){
+    public boolean shootOnAi(Button btn, GridPane targetGrid) {
         int x = (int) btn.getProperties().get(CASE_X_POSITION);
         int y = (int) btn.getProperties().get(CASE_Y_POSITION);
         Case target = aiCases[x][y];

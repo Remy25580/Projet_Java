@@ -1,18 +1,17 @@
 package school.coda.remy_axel_ethan.projet_java.tools;
 
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+
 import java.net.URL;
 
 public class SoundManager {
-
-    private static final AudioClip SHOOT = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/kaboom.wav");
-    private static final AudioClip FAIL = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/the-funny-splash.wav");
-    private static final AudioClip SHIP_SUNK_PLAYER = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/mimimi-clash-royale.wav");
-    private static final AudioClip SHIP_SUNK_IA = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/Explosion.wav");
-    private static final AudioClip VICTORY = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/victory.wav");
-    private static final AudioClip DING_DING = loadAudioClip("/school/coda/remy_axel_ethan/projet_java/sounds/dingding.wav");
+    private static final String SOUNDS_LOCATION = "/school/coda/remy_axel_ethan/projet_java/sounds/";
+    private static final AudioClip SHOOT = loadAudioClip(SOUNDS_LOCATION + "kaboom.wav");
+    private static final AudioClip FAIL = loadAudioClip(SOUNDS_LOCATION + "the-funny-splash.wav");
+    private static final AudioClip SHIP_SUNK_PLAYER = loadAudioClip(SOUNDS_LOCATION + "mimimi-clash-royale.wav");
+    private static final AudioClip SHIP_SUNK_IA = loadAudioClip(SOUNDS_LOCATION + "Explosion.wav");
+    private static final AudioClip VICTORY = loadAudioClip(SOUNDS_LOCATION + "victory.wav");
+    private static final AudioClip DING_DING = loadAudioClip(SOUNDS_LOCATION + "dingding.wav");
 
     public static void playSunkPlayer() {
         if (SHIP_SUNK_PLAYER != null) SHIP_SUNK_PLAYER.play();
@@ -23,6 +22,7 @@ public class SoundManager {
     }
 
 
+    // Eviter de faire des return null...
     private static AudioClip loadAudioClip(String path) {
         try {
             URL resource = SoundManager.class.getResource(path);
@@ -34,29 +34,6 @@ public class SoundManager {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    public static void playBackgroundMusic(String path) {
-        MediaPlayer musicPlayer;
-        try {
-            URL resource = SoundManager.class.getResource(path);
-            if (resource == null) {
-                System.err.println("ERREUR : Musique introuvable : " + path);
-                return;
-            }
-
-            Media media = new Media(resource.toExternalForm());
-            musicPlayer = new MediaPlayer(media);
-
-            musicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-            musicPlayer.setVolume(0.3);
-            musicPlayer.play();
-
-            System.out.println("SUCCÈS : Musique lancée : " + path);
-        } catch (Exception e) {
-            System.err.println("ERREUR lors de la lecture de la musique.");
-            e.printStackTrace();
         }
     }
 

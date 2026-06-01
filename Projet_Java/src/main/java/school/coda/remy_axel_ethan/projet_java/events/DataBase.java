@@ -3,18 +3,18 @@ package school.coda.remy_axel_ethan.projet_java.events;
 import java.sql.*;
 
 public class DataBase {
-    private final String databaseUrl= "jdbc:sqlite:events.db";
+    private final String databaseUrl = "jdbc:sqlite:events.db";
 
-    public void createDb(){
-        try (Connection connection = DriverManager.getConnection(databaseUrl)){
-            try(Statement stmt = connection.createStatement()){
+    public void createDb() {
+        try (Connection connection = DriverManager.getConnection(databaseUrl)) {
+            try (Statement stmt = connection.createStatement()) {
 
                 String sql = "CREATE TABLE IF NOT EXISTS result (" +
-                             "  id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                             "  winner VARCHAR(10) NOT NULL, " +
-                             "  nbToursPlayer INTEGER NOT NULL, " +
-                             "  nbToursIa INTEGER NOT NULL" +
-                             ")";
+                        "  id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "  winner VARCHAR(10) NOT NULL, " +
+                        "  nbToursPlayer INTEGER NOT NULL, " +
+                        "  nbToursIa INTEGER NOT NULL" +
+                        ")";
 
                 stmt.execute(sql);
             }
@@ -24,7 +24,7 @@ public class DataBase {
     }
 
 
-    public void putAResult(String winner, int nbPlayer, int nbIa){
+    public void putAResult(String winner, int nbPlayer, int nbIa) {
         String sql = "INSERT INTO result (winner, nbToursPlayer, nbToursIa) VALUES (?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(databaseUrl);
@@ -37,12 +37,12 @@ public class DataBase {
             pstmt.executeUpdate();
             System.out.println("Résultat enregistré : Vainqueur = " + winner);
 
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.err.println("Erreur lors de l'insertion du résultat : " + e.getMessage());
         }
     }
 
-    public int gamesCounter(){
+    public int gamesCounter() {
         String sql = "SELECT COUNT(*) AS total FROM result";
         return counter(databaseUrl, sql);
     }
@@ -52,7 +52,7 @@ public class DataBase {
         return counter(databaseUrl, sql);
     }
 
-    private int counter(String databaseUrl, String sql){
+    private int counter(String databaseUrl, String sql) {
         int count = 0;
 
         try (Connection connection = DriverManager.getConnection(databaseUrl);
